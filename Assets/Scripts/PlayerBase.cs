@@ -1,42 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 using UniRx;
 using UniRx.Triggers;
 
 public class PlayerBase : MonoBehaviour
 {
+    [Inject]
+    IInputProbider _inputProvider;
+
     [SerializeField]
-    [Header("スピード")]
+    [Header("ジャンプパワー")]
+    float _jumpPower;
+
+    [SerializeField]
+    [Header("移動スピード")]
     float _speed;
 
+    [SerializeField]
+    [Header("リジッドボディ(剛体)")]
     Rigidbody2D _rb2D;
 
     void Start()
     {
-        _rb2D = GetComponent<Rigidbody2D>();
-        this.FixedUpdateAsObservable().Subscribe(x => Move());
+        this.UpdateAsObservable().Subscribe(x => MovePlayer());
     }
-
-    void Move()
+    void MovePlayer()
     {
-        float horizontalKey = Input.GetAxis("Horizontal");
-
-        // 右入力で左に動く
-        if (horizontalKey > 0)
+        if (_inputProvider.IsJump())
         {
-            _rb2D.velocity = new Vector2(_speed, _rb2D.velocity.y);
+            Jump();
         }
-        // 左入力で右に動く
-        else if (horizontalKey < 0)
-        {
-            _rb2D.velocity = new Vector2(-_speed, _rb2D.velocity.y);
-        }
-        // ボタンを話すと止まる
-        else
-        {
-            _rb2D.velocity = Vector2.zero;
-        }
-
+        _rb2D.velocity = new Vector3(_inputProvider.GetHorizontal(), _inputProvider.GetVertical()) * _speed;
     }
+
+    void Jump() => _rb2D.AddForce(new Vector2(0, _jumpPower),ForceMode2D.Impulse);
 }
