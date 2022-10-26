@@ -14,8 +14,8 @@ public class NormalInputProvider : IInputProbider
         return Input.GetAxis("Vertical");
     }
 
-    public bool IsJump()
+    public bool IsAttack()
     {
-        return Input.GetKeyDown(KeyCode.Space);
+        return Input.GetMouseButtonDown(0);
     }
 }

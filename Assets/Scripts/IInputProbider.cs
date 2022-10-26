@@ -4,10 +4,10 @@ using UnityEngine;
 
 public interface IInputProbider
 {
-    bool IsJump();
-
     float GetHorizontal();
 
     float GetVertical();
+
+    bool IsAttack();
 
 }
