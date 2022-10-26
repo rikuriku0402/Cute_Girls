@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
+using UniRx.Triggers;
 
 public class PlayerBaseBattle : MonoBehaviour
 {
@@ -32,15 +34,28 @@ public class PlayerBaseBattle : MonoBehaviour
     [Header("“G‚ÌUŒ‚—Í")]
     int _enemyAttack;
 
-    void Start()
+    private void Start()
     {
+        this.UpdateAsObservable().Subscribe(x => LifeCheck());
+    }
+
+    void LifeCheck()
+    {
+        if (_playerData.Life.Value <= 0)
+        {
+            GameManager.GameOver();
+        }
+        if (_enemyData.Life.Value <= 0)
+        {
+            GameManager.GameClear();
+        }
     }
 
     public void Attack()
     {
         //ƒ{ƒ^ƒ“‚ªActive‚¾‚Á‚½‚ç
-        _playerData.AddDamage(_playerAttack);
-        print("ƒvƒŒƒCƒ„[‚ª“G‚É" + _playerAttack + "—^‚¦‚½");
+        _playerData.GetDamage(_enemyAttack);
+        print("ƒvƒŒƒCƒ„[‚ª“G‚É" + _enemyAttack + "—^‚¦‚½");
         //ƒ{ƒ^ƒ“‚ð”ñActive
         _buttons.ForEach(x => x.interactable = false);
         _type = AttackEnum.Attack;
@@ -62,14 +77,14 @@ public class PlayerBaseBattle : MonoBehaviour
         switch (_type)
         {
             case AttackEnum.Attack:
-                _enemyData.AddDamage(_enemyAttack);
-                print("“G‚ªƒvƒŒƒCƒ„[‚É" + _enemyAttack + "—^‚¦‚½");
+                _enemyData.GetDamage(_playerAttack);
+                print("“G‚ªƒvƒŒƒCƒ„[‚É" + _playerAttack + "—^‚¦‚½");
                 _buttons.ForEach(x => x.interactable = true);
         //ƒ{ƒ^ƒ“‚ðActive
                 break;
             case AttackEnum.Defense:
-                int allAttack = _enemyAttack - _defence;
-                _enemyData.AddDamage(allAttack);
+                int allAttack = _playerAttack - _defence;
+                _enemyData.GetDamage(allAttack);
                 print("“G‚ªƒvƒŒƒCƒ„[‚É" + allAttack + "—^‚¦‚½");
                 _buttons.ForEach(x => x.interactable = true);
                 break;

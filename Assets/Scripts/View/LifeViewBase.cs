@@ -11,8 +11,6 @@ public class LifeViewBase : MonoBehaviour
     [Header("HPスライダー")]
     Slider _hpSlider;
 
-    bool _;
-
     public virtual void SetLife(int lifeCount)
     {
         _hpSlider.value = lifeCount;
