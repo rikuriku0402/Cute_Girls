@@ -9,7 +9,7 @@ public class HpDataBase : MonoBehaviour
 
     IntReactiveProperty _life = new IntReactiveProperty(100);
 
-    public virtual void Damage(int value) => Life.Value -= value;
+    public virtual void AddDamage(int value) => Life.Value -= value;
 
     public virtual void OnDestroy()
     {

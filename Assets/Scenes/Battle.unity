@@ -413,7 +413,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: "\u9650\u754C\u30AA\u30BF\u30AF"
 --- !u!222 &454781489
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1810,6 +1810,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerData: {fileID: 658621631}
   _enemyData: {fileID: 2092188381}
+  _buttons:
+  - {fileID: 1654424441}
+  - {fileID: 2142767696}
+  _defence: 8
+  _playerAttack: 20
+  _enemyAttack: 10
 --- !u!1 &1564968503
 GameObject:
   m_ObjectHideFlags: 0
@@ -1881,7 +1887,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: "\u308A\u304F"
 --- !u!222 &1564968506
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2132,7 +2138,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Attack
+  m_Text: Defance
 --- !u!222 &1761496670
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2578,9 +2584,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerBase, Assembly-CSharp
-        m_MethodName: Type
+      - m_Target: {fileID: 1557527983}
+        m_TargetAssemblyTypeName: PlayerBaseBattle, Assembly-CSharp
+        m_MethodName: Defance
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

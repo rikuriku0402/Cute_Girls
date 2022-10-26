@@ -45,6 +45,7 @@ public class PlayerBaseWalk : MonoBehaviour
             _animator.SetBool("Run", false);
         }
         _rb.velocity = new Vector3(_inputProvider.GetHorizontal(), _inputProvider.GetVertical()) * _speed;
+
     }
 
     void Attack() => _animator.SetTrigger("Attack");
