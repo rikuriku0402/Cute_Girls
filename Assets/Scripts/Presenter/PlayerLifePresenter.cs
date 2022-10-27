@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerLifePresenter : LifePresenterBase
+public class PlayerLifePresenter : PresenterBase
 {
     public override void Start()
     {

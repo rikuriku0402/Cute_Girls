@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-public class LifePresenterBase : MonoBehaviour
+public class PresenterBase : MonoBehaviour
 {
     [SerializeField]
     [Header("プレイヤーデータ")]
-    HpDataBase _playerData;
+    DataBase _playerData;
 
     [SerializeField]
     [Header("ライフビュー")]
-    LifeViewBase _lifeView;
+    ViewBase _lifeView;
 
     public virtual void Start()
     {

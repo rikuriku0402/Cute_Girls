@@ -7,7 +7,7 @@ using UniRx.Triggers;
 
 public class PlayerBaseBattle : MonoBehaviour
 {
-    AttackEnum _type;
+    ActionEnum _type;
 
 
     [SerializeField]
@@ -54,18 +54,18 @@ public class PlayerBaseBattle : MonoBehaviour
     public void Attack()
     {
         //ƒ{ƒ^ƒ“‚ªActive‚¾‚Á‚½‚ç
-        _playerData.GetDamage(_enemyAttack);
-        print("ƒvƒŒƒCƒ„[‚ª“G‚É" + _enemyAttack + "—^‚¦‚½");
+        _enemyData.Damage(_playerAttack);
+        print("ƒvƒŒƒCƒ„[‚ª“G‚É" + _playerAttack + "—^‚¦‚½");
         //ƒ{ƒ^ƒ“‚ğ”ñActive
         _buttons.ForEach(x => x.interactable = false);
-        _type = AttackEnum.Attack;
+        _type = ActionEnum.Attack;
         StartCoroutine(WaitTime());
     }
 
     public void Defance()
     {
         _buttons.ForEach(x => x.interactable = false);
-        _type = AttackEnum.Defense;
+        _type = ActionEnum.Defense;
         StartCoroutine(WaitTime());
     }
 
@@ -76,15 +76,15 @@ public class PlayerBaseBattle : MonoBehaviour
         yield return new WaitForSeconds(2f);
         switch (_type)
         {
-            case AttackEnum.Attack:
-                _enemyData.GetDamage(_playerAttack);
-                print("“G‚ªƒvƒŒƒCƒ„[‚É" + _playerAttack + "—^‚¦‚½");
+            case ActionEnum.Attack:
+                _playerData.Damage(_enemyAttack);
+                print("“G‚ªƒvƒŒƒCƒ„[‚É" + _enemyAttack + "—^‚¦‚½");
                 _buttons.ForEach(x => x.interactable = true);
         //ƒ{ƒ^ƒ“‚ğActive
                 break;
-            case AttackEnum.Defense:
-                int allAttack = _playerAttack - _defence;
-                _enemyData.GetDamage(allAttack);
+            case ActionEnum.Defense:
+                int allAttack = _enemyAttack - _defence;
+                _playerData.Damage(allAttack);
                 print("“G‚ªƒvƒŒƒCƒ„[‚É" + allAttack + "—^‚¦‚½");
                 _buttons.ForEach(x => x.interactable = true);
                 break;
