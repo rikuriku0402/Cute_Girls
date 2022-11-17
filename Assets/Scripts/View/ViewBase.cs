@@ -16,10 +16,7 @@ public class ViewBase : MonoBehaviour
     Text _logText;
 
 
-    public virtual void SetLife(int lifeCount)
-    {
-        _hpSlider.value = lifeCount;
-    }
+    public virtual void SetHp(int hpCount) => _hpSlider.value = hpCount;
 
     public virtual void SetText(string text)
     {

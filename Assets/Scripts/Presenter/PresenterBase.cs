@@ -5,16 +5,22 @@ using UniRx;
 
 public class PresenterBase : MonoBehaviour
 {
-    [SerializeField]
-    [Header("プレイヤーデータ")]
-    DataBase _playerData;
+    public DataBase Data => _data;
+
+    public ViewBase LifeView => _lifeView;
+
+    CharacterType _type;
 
     [SerializeField]
-    [Header("ライフビュー")]
+    [Header("各種データ")]
+    DataBase _data;
+
+    [SerializeField]
+    [Header("各種ライフビュー")]
     ViewBase _lifeView;
 
     public virtual void Start()
     {
-        _playerData.Life.Subscribe(life => _lifeView.SetLife(life)).AddTo(this);
+        _data.Hp.Subscribe(hp => LifeView.SetHp(hp)).AddTo(this);
     }
 }

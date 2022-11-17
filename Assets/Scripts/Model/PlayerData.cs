@@ -4,4 +4,8 @@ using UnityEngine;
 
 public class PlayerData : DataBase
 {
+    void Start()
+    {
+        print(Hp);
+    }
 }

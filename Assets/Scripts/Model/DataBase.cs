@@ -6,15 +6,22 @@ using UniRx;
 
 public class DataBase : MonoBehaviour
 {
-    public IntReactiveProperty Life => _life;
+    public IntReactiveProperty Hp => _hp;
 
-    IntReactiveProperty _life = new IntReactiveProperty(100);
+    public IntReactiveProperty Mp => _mp;
 
-    public virtual void Damage(int value) => Life.Value -= value;
+    IntReactiveProperty _hp = new IntReactiveProperty(100);
+
+    IntReactiveProperty _mp = new IntReactiveProperty(150);
+
+    public virtual void HpDamage(int value) => Hp.Value -= value;
+
+    public virtual void MpDamage(int value) => Mp.Value -= value;
 
 
     public virtual void OnDestroy()
     {
-        Life.Dispose();
+        Hp.Dispose();
+        Mp.Dispose();
     }
 }

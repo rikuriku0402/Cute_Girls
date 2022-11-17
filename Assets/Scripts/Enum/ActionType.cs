@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ActionEnum
+public enum ActionType
 {
     Attack,
     Defense,
+    Portion,
+    Recovery,
+    HpRecvery
 }

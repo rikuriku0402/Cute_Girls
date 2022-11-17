@@ -5,7 +5,7 @@ using Zenject;
 using UniRx;
 using UniRx.Triggers;
 
-public class PlayerBaseWalk : MonoBehaviour
+public class WalkBase : MonoBehaviour
 {
     Animator _animator;
 
@@ -18,12 +18,18 @@ public class PlayerBaseWalk : MonoBehaviour
     [Header("移動スピード")]
     float _speed;
 
+    [SerializeField]
+    [Header("Enemy Canvas")]
+    GameObject _enemyCanvas;
+
     void Start()
     {
         this.UpdateAsObservable().Subscribe(x => MovePlayer());
         _animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody2D>();
+        //DontDestroyOnLoad(this);
     }
+
     void MovePlayer()
     {
         if (_inputProvider.IsAttack())
@@ -45,7 +51,6 @@ public class PlayerBaseWalk : MonoBehaviour
             _animator.SetBool("Run", false);
         }
         _rb.velocity = new Vector3(_inputProvider.GetHorizontal(), _inputProvider.GetVertical()) * _speed;
-
     }
 
     void Attack() => _animator.SetTrigger("Attack");
@@ -56,9 +61,11 @@ public class PlayerBaseWalk : MonoBehaviour
         {
             goal.GoalClear();
         }
-        if (collision.TryGetComponent(out IEnemy enemy))
+        if (collision.TryGetComponent(out IBattle enemy))
         {
-            enemy.GetEnemy();
+            enemy.GetBattle(_enemyCanvas);
+            Destroy(collision.gameObject);
+            //SaveTransform();
         }
     }
 }
