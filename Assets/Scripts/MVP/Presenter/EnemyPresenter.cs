@@ -2,22 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using UniRx.Triggers;
 
-public class PresenterBase : MonoBehaviour
+public class EnemyPresenter : MonoBehaviour
 {
-    public DataBase Data => _data;
-
-    public ViewBase LifeView => _lifeView;
-
-    CharacterType _type;
+    public EnemyView LifeView => _lifeView;
 
     [SerializeField]
     [Header("各種データ")]
-    DataBase _data;
+    EnemyData _data;
 
     [SerializeField]
     [Header("各種ライフビュー")]
-    ViewBase _lifeView;
+    EnemyView _lifeView;
 
     public virtual void Start()
     {

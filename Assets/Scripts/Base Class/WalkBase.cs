@@ -27,7 +27,6 @@ public class WalkBase : MonoBehaviour
         this.UpdateAsObservable().Subscribe(x => MovePlayer());
         _animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody2D>();
-        //DontDestroyOnLoad(this);
     }
 
     void MovePlayer()
@@ -65,7 +64,6 @@ public class WalkBase : MonoBehaviour
         {
             enemy.GetBattle(_enemyCanvas);
             Destroy(collision.gameObject);
-            //SaveTransform();
         }
     }
 }

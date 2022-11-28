@@ -11,6 +11,8 @@ public class BattleManager : MonoBehaviour
 
     ActionType _actionType;
 
+    bool _isFirstAction;
+
     [SerializeField]
     [Header("プレイヤーデータ")]
     PlayerData _playerData;
@@ -47,21 +49,28 @@ public class BattleManager : MonoBehaviour
     [Header("ログテキスト")]
     Text _logText;
 
+    [SerializeField]
+    [Header("EnemyCanvas")]
+    GameObject _enemyCanvasPanel;
+
     private void Start()
     {
         _isPortion = true;
         this.UpdateAsObservable().Subscribe(x => LifeCheck());
+        _isFirstAction = false;
     }
 
     void LifeCheck()
     {
         if (_playerData.Hp.Value <= 0)
         {
-            GameManager.GameOver();
+            GameManager.Instance.GameOver();
         }
-        if (_enemyData.Hp.Value <= 0)
+        if (!_isFirstAction && _enemyData.Hp.Value <= 0)
         {
-            GameManager.GameClear();
+            print("ゲームクリア");
+            _enemyCanvasPanel.SetActive(false);
+            _isFirstAction = true;
         }
     }
 

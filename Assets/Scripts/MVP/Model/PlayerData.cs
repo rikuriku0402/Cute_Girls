@@ -4,15 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 
-public class DataBase : MonoBehaviour
+public class PlayerData : MonoBehaviour
 {
     public IntReactiveProperty Hp => _hp;
 
     public IntReactiveProperty Mp => _mp;
 
-    IntReactiveProperty _hp = new IntReactiveProperty(100);
+    [SerializeField]
+    IntReactiveProperty _hp = new IntReactiveProperty();
 
-    IntReactiveProperty _mp = new IntReactiveProperty(150);
+    [SerializeField]
+    IntReactiveProperty _mp = new IntReactiveProperty();
 
     public virtual void HpDamage(int value) => Hp.Value -= value;
 

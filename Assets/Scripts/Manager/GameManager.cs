@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     const string SCENE_NAME_STSGE = "Stage";
 
-    static GameManager Instance;
+    public static GameManager Instance;
 
     [SerializeField]
     GameManagerData _gameManagerData;
@@ -25,15 +25,15 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public static void GameClear()
+    public void GameClear()
     {
-
+        print("ゲームクリア");
     }
 
-    public static void GameOver()
+    public void GameOver()
     {
         print("ゲームオーバー");
-        SceneLoader.SceneChange("Stage");
+        SceneLoader.SceneChange(SCENE_NAME_STSGE);
     }
 
     public GameManagerData GetGameManagerData() => _gameManagerData;

@@ -5,6 +5,4 @@ using UnityEngine;
 public interface IBattle
 {
     void GetBattle(GameObject panel);
-
-    void EndBattle(GameObject panel);
 }
