@@ -68,7 +68,6 @@ public class BattleManager : MonoBehaviour
         }
         if (!_isFirstAction && _enemyData.Hp.Value <= 0)
         {
-            print("ゲームクリア");
             _enemyCanvasPanel.SetActive(false);
             _isFirstAction = true;
         }
@@ -85,7 +84,7 @@ public class BattleManager : MonoBehaviour
     public void Attack()
     {
         //ボタンがActiveだったら
-        _enemyData.HpDamage(_playerAttack);
+        _enemyData.Damage(_playerAttack);
         print("プレイヤーが敵に" + _playerAttack + "与えた");
         // テキストにダメージ量とかを出す
         _logText.text = "プレイヤーが敵に" + _playerAttack + "与えた";
@@ -107,7 +106,7 @@ public class BattleManager : MonoBehaviour
     {
         if (_isPortion)
         {
-            _enemyData.HpDamage(_portionAttack);
+            _enemyData.Damage(_portionAttack);
             _playerData.MpDamage(_portionMp);
             print("プレイヤーが敵に" + _portionAttack + "与えた");
             _logText.text = "プレイヤーが敵に" + _portionAttack + "与えた";

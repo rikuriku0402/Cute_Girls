@@ -8,9 +8,10 @@ public class EnemyData : MonoBehaviour
     public IntReactiveProperty Hp => _hp;
 
     [SerializeField]
+    [Header("“G‚Ì‘Ì—Í")]
     IntReactiveProperty _hp = new IntReactiveProperty();
 
-    public virtual void HpDamage(int value) => Hp.Value -= value;
+    public virtual void Damage(int value) => Hp.Value -= value;
 
     public virtual void OnDestroy()
     {

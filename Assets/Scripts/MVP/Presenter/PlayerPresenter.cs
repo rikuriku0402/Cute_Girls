@@ -17,7 +17,7 @@ public class PlayerPresenter : MonoBehaviour
 
     public virtual void Start()
     {
-        _data.Hp.Subscribe(hp => LifeView.SetHp(hp)).AddTo(this);
+        _data.Hp.Subscribe(hp => LifeView.SetHP(hp)).AddTo(this);
         _data.Mp.Subscribe(mp => LifeView.SetMP(mp)).AddTo(this);
     }
 }
