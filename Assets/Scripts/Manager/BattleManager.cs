@@ -1,164 +1,146 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UniRx;
-using UniRx.Triggers;
+using Cysharp.Threading.Tasks;
+using System;
 
 public class BattleManager : MonoBehaviour
 {
-    bool _isPortion;
+    #region Property
 
-    ActionType _actionType;
+    public int PlayerAttack => _playerAttack;
 
-    bool _isFirstAction;
+    public int EnemyAttack => _enemyAttack;
+
+    public int PortionAttack => _portionAttack;
+
+    public int MPPortionRecovery => _mPRecovery;
+
+    #endregion
+
+    #region Inspector
 
     [SerializeField]
-    [Header("プレイヤーデータ")]
+    [Header("Player Data")]
     PlayerData _playerData;
 
     [SerializeField]
-    [Header("エネミーデータ")]
+    [Header("Enemy Data")]
     EnemyData _enemyData;
 
     [SerializeField]
-    [Header("ボタンリスト")]
-    List<Button> _buttons = new();
-
-    [SerializeField]
-    [Header("ディフェンス")]
+    [Header("Defence")]
     int _defence;
 
     [SerializeField]
-    [Header("プレイヤーの攻撃力")]
+    [Header("Player Attack")]
     int _playerAttack;
 
     [SerializeField]
-    [Header("ポーションの攻撃力")]
+    [Header("Portion Attack")]
     int _portionAttack;
 
     [SerializeField]
-    [Header("使用MP")]
+    [Header("MP Recovery")]
+    int _mPRecovery;
+
+    [SerializeField]
+    [Header("Use MP")]
     int _portionMp;
 
     [SerializeField]
-    [Header("敵の攻撃力")]
+    [Header("Enemy Attack")]
     int _enemyAttack;
 
     [SerializeField]
-    [Header("ログテキスト")]
-    Text _logText;
-
-    [SerializeField]
-    [Header("EnemyCanvas")]
+    [Header("Enemy Canvas")]
     GameObject _enemyCanvasPanel;
 
-    private void Start()
+    #endregion
+
+    #region Method
+
+    /// <summary>
+    /// 攻撃する関数
+    /// </summary>
+    public async UniTask Attack()
     {
-        _isPortion = true;
-        this.UpdateAsObservable().Subscribe(x => LifeCheck());
-        _isFirstAction = false;
+        print("敵に攻撃");
+        _enemyData.Damage(_playerAttack);
+        await UniTask.Delay(TimeSpan.FromSeconds(1f));
+        _playerData.HpDamage(_enemyAttack);
+        HpCheck();
     }
 
-    void LifeCheck()
+    /// <summary>
+    /// 防御する関数
+    /// </summary>
+    public async UniTask Defence()
+    {
+        MPCheck();
+        int allAttack = _enemyAttack - 10;// マジックナンバー
+        _playerData.MpDamage(_portionMp);
+        print("防御");
+        await UniTask.Delay(TimeSpan.FromSeconds(1f));
+        _playerData.HpDamage(allAttack);
+        HpCheck();
+    }
+
+    /// <summary>
+    /// ポーションで攻撃する関数
+    /// </summary>
+    public async UniTask Portion()
+    {
+        MPCheck();
+        _enemyData.Damage(_portionAttack);
+        _playerData.MpDamage(_portionMp);
+        await UniTask.Delay(TimeSpan.FromSeconds(1f));
+        _playerData.HpDamage(_enemyAttack);
+        HpCheck();
+    }
+
+    /// <summary>
+    /// ポーションを回復する関数
+    /// </summary>
+    public async UniTask MPRecovery()
+    {
+        int allAttack = _enemyAttack + 10;// マジックナンバー
+        _playerData.MpRecovery(_mPRecovery);
+        await UniTask.Delay(TimeSpan.FromSeconds(1f));
+        _playerData.HpDamage(allAttack);
+        HpCheck();
+    }
+
+    /// <summary>
+    /// 体力をチェックする関数
+    /// </summary>
+    void HpCheck()
     {
         if (_playerData.Hp.Value <= 0)
         {
-            GameManager.Instance.GameOver();
+            print("ゲームオーバー");
         }
-        if (!_isFirstAction && _enemyData.Hp.Value <= 0)
+        else if (_enemyData.Hp.Value <= 0)
         {
-            _enemyCanvasPanel.SetActive(false);
-            _isFirstAction = true;
-        }
-    }
-
-    void MPCheck()
-    {
-        if (_portionMp <= 0)
-        {
-            _isPortion = false;
-        }
-    }
-
-    public void Attack()
-    {
-        //ボタンがActiveだったら
-        _enemyData.Damage(_playerAttack);
-        print("プレイヤーが敵に" + _playerAttack + "与えた");
-        // テキストにダメージ量とかを出す
-        _logText.text = "プレイヤーが敵に" + _playerAttack + "与えた";
-        //ボタンを非Active
-        _buttons.ForEach(x => x.interactable = false);
-        _actionType = ActionType.Attack;
-        StartCoroutine(WaitTime());
-    }
-
-    public void Defance()
-    {
-        _buttons.ForEach(x => x.interactable = false);
-        _logText.text = "防御する";
-        _actionType = ActionType.Defense;
-        StartCoroutine(WaitTime());
-    }
-
-    public void Portion()
-    {
-        if (_isPortion)
-        {
-            _enemyData.Damage(_portionAttack);
-            _playerData.MpDamage(_portionMp);
-            print("プレイヤーが敵に" + _portionAttack + "与えた");
-            _logText.text = "プレイヤーが敵に" + _portionAttack + "与えた";
-            _buttons.ForEach(x => x.interactable = false);
-            _actionType = ActionType.Portion;
-            StartCoroutine(WaitTime());
-            MPCheck();
+            print("ゲームクリア");
         }
         else
         {
-            _logText.text = "MPが足りないよ";
+            print("まだゲームは終わっていないよ！");
         }
     }
 
     /// <summary>
-    /// 連打防止
+    /// MPをチェックする関数
     /// </summary>
-    /// <returns></returns>
-    IEnumerator WaitTime()
+    void MPCheck()
     {
-        yield return new WaitForSeconds(2f);
-        _logText.text = null;
-        int allAttack = 0;
-
-        switch (_actionType)
+        if (_playerData.Mp.Value <= 0)
         {
-            case ActionType.Attack:
-                _playerData.HpDamage(_enemyAttack);
-                print("敵がプレイヤーに" + _enemyAttack + "与えた");
-                //ボタンをActive
-                break;
-
-            case ActionType.Defense:
-                allAttack = _enemyAttack - _defence;
-                _playerData.HpDamage(allAttack);
-                print("敵がプレイヤーに" + allAttack + "与えた");
-                break;
-
-            case ActionType.Portion:
-                allAttack = _enemyAttack + _enemyAttack;
-                _playerData.HpDamage(allAttack);
-                print("敵がプレイヤーに" + allAttack + "与えた");
-                break;
-
-            case ActionType.Recovery:
-                // MP回復スキル
-                break;
-
-            case ActionType.HpRecvery:
-                // HP回復スキル
-                break;
+            print("MPが足りないよ");
+            return;
         }
-        _buttons.ForEach(x => x.interactable = true);
     }
+
+    #endregion
 }

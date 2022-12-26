@@ -7,8 +7,6 @@ using UniRx.Triggers;
 
 public class WalkBase : MonoBehaviour
 {
-    public float Speed => _speed;
-
     Animator _animator;
 
     Rigidbody2D _rb;

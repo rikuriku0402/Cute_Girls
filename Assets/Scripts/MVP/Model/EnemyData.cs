@@ -5,16 +5,32 @@ using UniRx;
 
 public class EnemyData : MonoBehaviour
 {
+    #region Property
+
     public IntReactiveProperty Hp => _hp;
 
+    #endregion
+
+    #region Inspector
+
     [SerializeField]
-    [Header("“G‚Ì‘Ì—Í")]
-    IntReactiveProperty _hp = new IntReactiveProperty();
+    [Header("HP")]
+    IntReactiveProperty _hp = new();
 
-    public virtual void Damage(int value) => Hp.Value -= value;
+    #endregion
 
-    public virtual void OnDestroy()
+    #region Unity Method
+
+    public void OnDestroy()
     {
         Hp.Dispose();
     }
+
+    #endregion
+
+    #region Method
+
+    public void Damage(int anyValue) => Hp.Value -= anyValue;
+
+    #endregion
 }
