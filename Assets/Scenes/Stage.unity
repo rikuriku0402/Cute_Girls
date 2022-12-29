@@ -923,7 +923,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1087,16 +1087,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerData: {fileID: 1383133885}
   _enemyData: {fileID: 1175624641}
-  _buttons:
-  - {fileID: 1317756845}
-  - {fileID: 933377005}
-  - {fileID: 878725998}
   _defence: 8
   _playerAttack: 20
   _portionAttack: 30
+  _mPRecovery: 0
   _portionMp: 10
   _enemyAttack: 10
-  _logText: {fileID: 1346651138}
   _enemyCanvasPanel: {fileID: 834779298}
 --- !u!1 &519420028
 GameObject:
@@ -1545,8 +1541,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5d201d555fa3634a863a8f66d259de1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data: {fileID: 1383133885}
-  _lifeView: {fileID: 1904921427}
 --- !u!1 &780722899
 GameObject:
   m_ObjectHideFlags: 0
@@ -1726,7 +1720,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &834779299
 Transform:
   m_ObjectHideFlags: 0
@@ -2330,7 +2324,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.535, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2531,8 +2525,8 @@ RectTransform:
   m_Father: {fileID: 15814775}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.535, y: 0}
+  m_AnchorMax: {x: 0.535, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2985,7 +2979,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.535, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3128,8 +3122,8 @@ RectTransform:
   m_Father: {fileID: 568832179}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.535, y: 0}
+  m_AnchorMax: {x: 0.535, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3450,8 +3444,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 225054b14308b7c4b80ae987b0a93c5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data: {fileID: 1175624641}
-  _lifeView: {fileID: 79638996}
+  _enemyData: {fileID: 0}
+  _enemyView: {fileID: 0}
+  _playerData: {fileID: 0}
+  _playerView: {fileID: 0}
 --- !u!1 &1792044409
 GameObject:
   m_ObjectHideFlags: 0
@@ -3751,8 +3747,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3746abd11f67ee5449ea2c682de9d655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _buttons: []
   _hpSlider: {fileID: 1846382188}
   _mpSlider: {fileID: 1127925174}
+  _attackButton: {fileID: 0}
+  _defenceButton: {fileID: 0}
+  _portionAttackButton: {fileID: 0}
+  _portionRecoveryButton: {fileID: 0}
+  _logText: {fileID: 0}
+  _battleSystem: {fileID: 0}
 --- !u!1 &1920189110
 GameObject:
   m_ObjectHideFlags: 0
@@ -4235,8 +4238,8 @@ RectTransform:
   m_Father: {fileID: 69649561}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

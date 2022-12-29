@@ -250,6 +250,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8060205704952407873, guid: 4f151a51c310c0446b81e2003aaef168, type: 3}
+      propertyPath: _gameManager
+      value: 
+      objectReference: {fileID: 1875132263}
     - target: {fileID: 8060205704952407878, guid: 4f151a51c310c0446b81e2003aaef168, type: 3}
       propertyPath: m_Name
       value: ~~~SceneManager~~~
@@ -655,6 +659,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1872567071}
   m_CullTransparentMesh: 1
+--- !u!114 &1875132263 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 749335631493784252, guid: d65eba1daf3da084da4ffaf2f8d2af05, type: 3}
+  m_PrefabInstance: {fileID: 749335630928145893}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b57b130c039fc64cacda0d348d92b16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2076734957
 GameObject:
   m_ObjectHideFlags: 0

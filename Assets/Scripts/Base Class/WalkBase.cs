@@ -62,9 +62,10 @@ public class WalkBase : MonoBehaviour
         }
         if (collision.TryGetComponent(out IBattle enemy))
         {
-            enemy.GetBattle(_enemyCanvas);
-            _speed = 0f;
-            Destroy(collision.gameObject);
+            SceneLoader.SceneChange("Battle");
+            //enemy.GetBattle(_enemyCanvas);
+            //_speed = 0f;
+            //Destroy(collision.gameObject);
         }
     }
 }

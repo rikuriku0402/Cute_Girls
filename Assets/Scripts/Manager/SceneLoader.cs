@@ -9,8 +9,12 @@ public class SceneLoader : MonoBehaviour
 
     GameManagerData _gameManagerData;
 
+    [SerializeField]
+    GameManager _gameManager;
     void Start()
     {
+        //_gameManager.GetGameManagerData();
+        //GameManager.Instance.GetGameManagerData();
         _gameManagerData = FindObjectOfType<GameManager>().GetGameManagerData();
     }
 
