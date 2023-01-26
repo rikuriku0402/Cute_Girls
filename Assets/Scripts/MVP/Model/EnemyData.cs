@@ -15,7 +15,7 @@ public class EnemyData : MonoBehaviour
 
     [SerializeField]
     [Header("HP")]
-    IntReactiveProperty _hp = new();
+    private IntReactiveProperty _hp = new();
 
     #endregion
 

@@ -17,11 +17,11 @@ public class PlayerData : MonoBehaviour
 
     [SerializeField]
     [Header("HP")]
-    IntReactiveProperty _hp = new();
+    private IntReactiveProperty _hp = new();
 
     [SerializeField]
     [Header("MP")]
-    IntReactiveProperty _mp = new();
+    private IntReactiveProperty _mp = new();
 
     #endregion
 

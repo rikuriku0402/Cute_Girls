@@ -8,8 +8,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
 
-    [SerializeField]
-    GameManagerData _gameManagerData;
+    private bool _isGame;
 
     private void Awake()
     {
@@ -35,6 +34,4 @@ public class GameManager : MonoBehaviour
         print("ゲームオーバー");
         SceneLoader.SceneChange(SCENE_NAME_STSGE);
     }
-
-    public GameManagerData GetGameManagerData() => _gameManagerData;
 }

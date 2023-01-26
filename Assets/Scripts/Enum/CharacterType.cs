@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public enum CharacterType
 {
     Hiyori,
     Aki,
     Hitoka,
-    Juria,
+    Julia,
     Kanami,
     Oharu,
+    None,
     Enemy,
     BossEnemy,
     Player

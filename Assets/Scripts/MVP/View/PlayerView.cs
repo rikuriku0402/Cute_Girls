@@ -9,39 +9,39 @@ public class PlayerView : MonoBehaviour
 
     [SerializeField]
     [Header("Button List")]
-    List<Button> _buttons = new();
+    private List<Button> _buttons = new();
 
     [SerializeField]
     [Header("HP Slider")]
-    Slider _hpSlider;
+    private Slider _hpSlider;
 
     [SerializeField]
     [Header("MP Slider")]
-    Slider _mpSlider;
+    private Slider _mpSlider;
 
     [SerializeField]
     [Header("Attack Button")]
-    Button _attackButton;
+    private Button _attackButton;
 
     [SerializeField]
     [Header("Defence Button")]
-    Button _defenceButton;
+    private Button _defenceButton;
 
     [SerializeField]
     [Header("Portion Attack Button")]
-    Button _portionAttackButton;
+    private Button _portionAttackButton;
 
     [SerializeField]
     [Header("Portion Recovery Button")]
-    Button _portionRecoveryButton;
+    private Button _portionRecoveryButton;
 
     [SerializeField]
     [Header("Log Text")]
-    Text _logText;
+    private Text _logText;
 
     [SerializeField]
     [Header("Battle System")]
-    BattleManager _battleSystem;
+    private BattleManager _battleSystem;
 
     #endregion
 
@@ -76,7 +76,7 @@ public class PlayerView : MonoBehaviour
     /// <summary>
     /// ƒAƒ^ƒbƒNƒ{ƒ^ƒ“‚É“o˜^‚·‚éŠÖ”
     /// </summary>
-    async void Attack()
+    private async void Attack()
     {
         _buttons.ForEach(x => x.interactable = false);
         _logText.text = "Player‚ª“G‚É" + _battleSystem.PlayerAttack + "—^‚¦‚½";
@@ -96,7 +96,7 @@ public class PlayerView : MonoBehaviour
     /// <summary>
     /// –hŒäƒ{ƒ^ƒ“‚É“o˜^‚·‚éŠÖ”
     /// </summary>
-    async void Defence()
+    private async void Defence()
     {
         _buttons.ForEach(x => x.interactable = false);
         _logText.text = "–hŒä‚µ‚½" + _battleSystem.EnemyAttack + "‚­‚ç‚Á‚½";
@@ -107,7 +107,7 @@ public class PlayerView : MonoBehaviour
     /// <summary>
     /// ƒ|[ƒVƒ‡ƒ“ƒ{ƒ^ƒ“‚É“o˜^‚·‚éŠÖ”
     /// </summary>
-    async void PortionAttack()
+    private async void PortionAttack()
     {
         _buttons.ForEach(x => x.interactable = false);
         _logText.text = "Player‚ª“G‚É" + _battleSystem.PortionAttack + "—^‚¦‚½";
@@ -119,7 +119,7 @@ public class PlayerView : MonoBehaviour
     /// <summary>
     /// MP‰ñ•œƒ{ƒ^ƒ“‚É“o˜^‚·‚éŠÖ”
     /// </summary>
-    async void MPRecovery()
+    private async void MPRecovery()
     {
         _buttons.ForEach(x => x.interactable = false);
         _logText.text = "MP‚ğ" + _battleSystem.MPPortionRecovery + "‰ñ•œ‚µ‚½";

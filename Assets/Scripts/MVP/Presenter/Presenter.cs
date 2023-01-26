@@ -9,24 +9,24 @@ public class Presenter : MonoBehaviour
 
     [SerializeField]
     [Header("Enemy Data")]
-    EnemyData _enemyData;
+    private EnemyData _enemyData;
 
     [SerializeField]
     [Header("Enemy View")]
-    EnemyView _enemyView;
+    private EnemyView _enemyView;
 
     [SerializeField]
     [Header("Player Data")]
-    PlayerData _playerData;
+    private PlayerData _playerData;
 
     [SerializeField]
     [Header("Player View")]
-    PlayerView _playerView;
+    private PlayerView _playerView;
 
     #endregion
 
     #region Unity Method
-    void Start()
+    private void Start()
     {
         _playerData.Hp.Subscribe(hp => _playerView.SetHP(hp)).AddTo(this);
         _playerData.Mp.Subscribe(mp => _playerView.SetMP(mp)).AddTo(this);

@@ -7,20 +7,20 @@ using UniRx.Triggers;
 
 public class WalkBase : MonoBehaviour
 {
-    Animator _animator;
-
-    Rigidbody2D _rb;
-
     [Inject]
-    IInputProbider _inputProvider;
+    private IInputProbider _inputProvider;
 
     [SerializeField]
     [Header("移動スピード")]
-    float _speed;
+    private float _speed;
 
     [SerializeField]
     [Header("Enemy Canvas")]
-    GameObject _enemyCanvas;
+    private GameObject _enemyCanvas;
+
+    private Animator _animator;
+
+    private Rigidbody2D _rb;
 
     void Start()
     {
@@ -63,9 +63,6 @@ public class WalkBase : MonoBehaviour
         if (collision.TryGetComponent(out IBattle enemy))
         {
             SceneLoader.SceneChange("Battle");
-            //enemy.GetBattle(_enemyCanvas);
-            //_speed = 0f;
-            //Destroy(collision.gameObject);
         }
     }
 }

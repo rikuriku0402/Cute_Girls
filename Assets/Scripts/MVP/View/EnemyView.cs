@@ -9,7 +9,7 @@ public class EnemyView : MonoBehaviour
 
     [SerializeField]
     [Header("HP Slider")]
-    Slider _hpSlider;
+    private Slider _hpSlider;
 
     #endregion
 
