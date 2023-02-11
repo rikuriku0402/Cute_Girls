@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour,IBattle
 {
-    [SerializeField]
-    [Header("Enemy Canvas")]
-    GameObject _enemyCanvas;
-
-    private void Start()
-    {
-        _enemyCanvas.gameObject.SetActive(false);
-    }
-
     public void GetBattle(GameObject panel)
     {
-        _enemyCanvas.gameObject.SetActive(true);
+        panel.gameObject.SetActive(true);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        gameObject.SetActive(false);
     }
 }

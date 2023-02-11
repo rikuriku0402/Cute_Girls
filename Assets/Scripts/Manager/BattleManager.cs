@@ -108,6 +108,12 @@ public class BattleManager : MonoBehaviour
         _playerData.MpRecovery(_mPRecovery);
         await UniTask.Delay(TimeSpan.FromSeconds(1f));
         _playerData.HpDamage(allAttack);
+
+        if (_mPRecovery <= 150)
+        {
+            Debug.Log("MPマックス");
+            _playerData.Mp.Value = 150;
+        }
         HpCheck();
     }
 
@@ -118,15 +124,17 @@ public class BattleManager : MonoBehaviour
     {
         if (_playerData.Hp.Value <= 0)
         {
-            print("ゲームオーバー");
+            Debug.Log("ゲームオーバー");
         }
         else if (_enemyData.Hp.Value <= 0)
         {
-            print("ゲームクリア");
+            Debug.Log("ゲームクリア");
+            _enemyData.Init();
+            CanvasFalse();
         }
         else
         {
-            print("まだゲームは終わっていないよ！");
+            Debug.Log("まだゲームは終わっていないよ！");
         }
     }
 
@@ -137,9 +145,15 @@ public class BattleManager : MonoBehaviour
     {
         if (_playerData.Mp.Value <= 0)
         {
-            print("MPが足りないよ");
+            Debug.Log("MPが足りないよ");
             return;
         }
+    }
+
+    private void CanvasFalse()
+    {
+        _enemyCanvasPanel.gameObject.SetActive(false);
+        GameManager.Instance.ChangeGameMode(true);
     }
 
     #endregion

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public bool IsGame => _isGame;
+
     const string SCENE_NAME_STSGE = "Stage";
 
     public static GameManager Instance;
@@ -23,15 +25,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
-    public void GameClear()
+    private void Start()
     {
-        print("ゲームクリア");
+        _isGame = false;
     }
 
-    public void GameOver()
+    public bool ChangeGameMode(bool isGame)
     {
-        print("ゲームオーバー");
-        SceneLoader.SceneChange(SCENE_NAME_STSGE);
+        _isGame = isGame;
+        return _isGame;
     }
 }

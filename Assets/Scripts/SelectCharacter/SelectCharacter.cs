@@ -21,11 +21,16 @@ public class SelectCharacter : MonoBehaviour
     [Header("スポーン地点")]
     private Transform _spawnPos;
 
+    [SerializeField]
+    [Header("ゲームスタートボタン")]
+    private Button _gameStartButton;
+
     private CharacterType _type;
 
     private void Start()
     {
         _type = CharacterType.None;
+        _gameStartButton.onClick.AddListener(() => GameStart());
     }
 
     public void Character(int charaNum)
@@ -74,6 +79,7 @@ public class SelectCharacter : MonoBehaviour
         }
         else
         {
+            GameManager.Instance.ChangeGameMode(true);
             _charaText.text = _type.ToString() + "を助けに行く";
             _canvas.gameObject.SetActive(false);
             var anyIdol = Instantiate(_anyIdol[(int)_type], _spawnPos.position, Quaternion.identity); ;

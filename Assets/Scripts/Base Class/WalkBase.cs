@@ -4,19 +4,20 @@ using UnityEngine;
 using Zenject;
 using UniRx;
 using UniRx.Triggers;
+using System;
 
 public class WalkBase : MonoBehaviour
 {
-    [Inject]
-    private IInputProbider _inputProvider;
-
     [SerializeField]
     [Header("移動スピード")]
     private float _speed;
 
     [SerializeField]
-    [Header("Enemy Canvas")]
-    private GameObject _enemyCanvas;
+    [Header("UIManager")]
+    private UIManager _uiManager;
+
+    [Inject]
+    private IInputProbider _inputProvider;
 
     private Animator _animator;
 
@@ -25,34 +26,42 @@ public class WalkBase : MonoBehaviour
     void Start()
     {
         this.UpdateAsObservable().Subscribe(x => MovePlayer());
-        _animator = GetComponent<Animator>();
-        _rb = GetComponent<Rigidbody2D>();
+        TryGetComponent(out _animator);
+        TryGetComponent(out _rb);
     }
 
     void MovePlayer()
     {
-        if (_inputProvider.IsAttack())
+        if (GameManager.Instance.IsGame)
         {
-            Attack();
+            if (_inputProvider.IsAttack())
+            {
+                Attack();
+            }
+
+            if (_inputProvider.GetHorizontal() < 0)
+            {
+                transform.eulerAngles = new Vector3(0f, 180f, 0f);
+                _animator.SetBool("Run", true);
+            }
+            else if (_inputProvider.GetHorizontal() > 0)
+            {
+                transform.eulerAngles = new Vector3(0f, 0f, 0f);
+                _animator.SetBool("Run", true);
+            }
+            else
+            {
+                _animator.SetBool("Run", false);
+            }
+
+            _rb.velocity = new Vector3(_inputProvider.GetHorizontal(), _inputProvider.GetVertical()) * _speed;
         }
-        if (_inputProvider.GetHorizontal() < 0)
-        {
-            transform.eulerAngles = new Vector3(0f, 180f, 0f);
-            _animator.SetBool("Run", true);
-        }
-        else if (_inputProvider.GetHorizontal() > 0)
-        {
-            transform.eulerAngles = new Vector3(0f, 0f, 0f);
-            _animator.SetBool("Run", true);
-        }
-        else
-        {
-            _animator.SetBool("Run", false);
-        }
-        _rb.velocity = new Vector3(_inputProvider.GetHorizontal(), _inputProvider.GetVertical()) * _speed;
     }
 
-    void Attack() => _animator.SetTrigger("Attack");
+    private void Attack()
+    {
+        _animator.SetTrigger("Attack");
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -60,9 +69,13 @@ public class WalkBase : MonoBehaviour
         {
             goal.GoalClear();
         }
+
         if (collision.TryGetComponent(out IBattle enemy))
         {
-            SceneLoader.SceneChange("Battle");
+            enemy.GetBattle(_uiManager.BattleCanvas.gameObject);
+            _rb.velocity = new();
+            _animator.SetBool("Run", false);
+            GameManager.Instance.ChangeGameMode(false);
         }
     }
 }

@@ -1,18 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Canvas BattleCanvas => _battleCanvas;
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField]
+    [Header("バトルキャンバス")]
+    private Canvas _battleCanvas;
+
+    [SerializeField]
+    [Header("キャラ選択キャンバス")]
+    private Canvas _charaCanvas;
+
+
+    private void Start()
     {
-        
+        _battleCanvas.gameObject.SetActive(false);
+        _charaCanvas.gameObject.SetActive(true);
     }
 }

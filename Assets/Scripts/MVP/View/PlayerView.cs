@@ -83,14 +83,6 @@ public class PlayerView : MonoBehaviour
         await _battleSystem.Attack();
         _logText.text = "“G‚ªPlayer‚É" + _battleSystem.EnemyAttack + "—^‚¦‚½";
         _buttons.ForEach(x => x.interactable = true);
-
-        #region ‚±‚ê‚Í”ğ‚¯‚½‚¢
-        // ‚µ‚å‚¤‚ª‚È‚­List‚ÅŠÇ—‚µ‚Ä‚¢‚é
-        //_attackButton.interactable = false;
-        //_defenceButton.interactable = false;
-        //_portionAttackButton.interactable = false;
-        //_portionRecoveryButton.interactable = false;
-        #endregion
     }
 
     /// <summary>

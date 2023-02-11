@@ -32,5 +32,9 @@ public class EnemyData : MonoBehaviour
 
     public void Damage(int anyValue) => Hp.Value -= anyValue;
 
+    public void Init()
+    {
+        Hp.Value = 100;
+    }
     #endregion
 }

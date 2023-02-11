@@ -28,9 +28,9 @@ public class Presenter : MonoBehaviour
     #region Unity Method
     private void Start()
     {
+        _enemyData.Hp.Subscribe(hp => _enemyView.SetHp(hp)).AddTo(this);
         _playerData.Hp.Subscribe(hp => _playerView.SetHP(hp)).AddTo(this);
         _playerData.Mp.Subscribe(mp => _playerView.SetMP(mp)).AddTo(this);
-        _enemyData.Hp.Subscribe(hp => _enemyView.SetHp(hp)).AddTo(this);
     }
 
     #endregion
