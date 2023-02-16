@@ -6,8 +6,6 @@ public class GameManager : MonoBehaviour
 {
     public bool IsGame => _isGame;
 
-    const string SCENE_NAME_STSGE = "Stage";
-
     public static GameManager Instance;
 
     private bool _isGame;

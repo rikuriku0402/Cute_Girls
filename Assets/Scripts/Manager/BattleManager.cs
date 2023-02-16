@@ -14,7 +14,7 @@ public class BattleManager : MonoBehaviour
 
     public int PortionAttack => _portionAttack;
 
-    public int MPPortionRecovery => _mPRecovery;
+    public int MPPortionRecovery => _mpRecovery;
 
     #endregion
 
@@ -26,35 +26,39 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField]
     [Header("Enemy Data")]
-    EnemyData _enemyData;
+    private EnemyData _enemyData;
 
     [SerializeField]
-    [Header("Defence")]
-    int _defence;
+    [Header("防御力")]
+    private int _defence;
 
     [SerializeField]
-    [Header("Player Attack")]
-    int _playerAttack;
+    [Header("プレイヤー攻撃力")]
+    private int _playerAttack;
 
     [SerializeField]
-    [Header("Portion Attack")]
-    int _portionAttack;
+    [Header("ポーション攻撃力")]
+    private int _portionAttack;
 
     [SerializeField]
-    [Header("MP Recovery")]
-    int _mPRecovery;
+    [Header("どのくらいMPを回復させるか")]
+    private int _mpRecovery;
 
     [SerializeField]
-    [Header("Use MP")]
-    int _portionMp;
+    [Header("消費MP")]
+    private int _portionMp;
 
     [SerializeField]
-    [Header("Enemy Attack")]
-    int _enemyAttack;
+    [Header("敵の攻撃力")]
+    private int _enemyAttack;
 
     [SerializeField]
-    [Header("Enemy Canvas")]
-    GameObject _enemyCanvasPanel;
+    [Header("バトルキャンバス")]
+    private Canvas _BattleCanvas;
+
+    [SerializeField]
+    [Header("UIManager")]
+    private UIManager _uiManager;
 
     #endregion
 
@@ -66,8 +70,10 @@ public class BattleManager : MonoBehaviour
     public async UniTask Attack()
     {
         print("敵に攻撃");
-        _enemyData.Damage(_playerAttack);
-        await UniTask.Delay(TimeSpan.FromSeconds(1f));
+        _enemyData.HpDamage(_playerAttack);
+        _uiManager.EnemyDamageTextPopUp(_playerAttack);
+        await UniTask.Delay(TimeSpan.FromSeconds(1.2f));
+        _uiManager.PlayerDamageTextPopUp(_enemyAttack);
         _playerData.HpDamage(_enemyAttack);
         HpCheck();
     }
@@ -92,7 +98,7 @@ public class BattleManager : MonoBehaviour
     public async UniTask Portion()
     {
         MPCheck();
-        _enemyData.Damage(_portionAttack);
+        _enemyData.HpDamage(_portionAttack);
         _playerData.MpDamage(_portionMp);
         await UniTask.Delay(TimeSpan.FromSeconds(1f));
         _playerData.HpDamage(_enemyAttack);
@@ -105,11 +111,11 @@ public class BattleManager : MonoBehaviour
     public async UniTask MPRecovery()
     {
         int allAttack = _enemyAttack + 10;// マジックナンバー
-        _playerData.MpRecovery(_mPRecovery);
+        _playerData.MpRecovery(_mpRecovery);
         await UniTask.Delay(TimeSpan.FromSeconds(1f));
         _playerData.HpDamage(allAttack);
 
-        if (_mPRecovery <= 150)
+        if (_mpRecovery <= 150)
         {
             Debug.Log("MPマックス");
             _playerData.Mp.Value = 150;
@@ -120,7 +126,7 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// 体力をチェックする関数
     /// </summary>
-    void HpCheck()
+    private void HpCheck()
     {
         if (_playerData.Hp.Value <= 0)
         {
@@ -141,7 +147,7 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// MPをチェックする関数
     /// </summary>
-    void MPCheck()
+    private void MPCheck()
     {
         if (_playerData.Mp.Value <= 0)
         {
@@ -150,9 +156,12 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// キャンバスを非表示にする関数
+    /// </summary>
     private void CanvasFalse()
     {
-        _enemyCanvasPanel.gameObject.SetActive(false);
+        _BattleCanvas.gameObject.SetActive(false);
         GameManager.Instance.ChangeGameMode(true);
     }
 

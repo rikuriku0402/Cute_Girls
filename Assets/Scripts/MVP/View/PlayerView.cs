@@ -8,39 +8,39 @@ public class PlayerView : MonoBehaviour
     #region Inspector
 
     [SerializeField]
-    [Header("Button List")]
+    [Header("ボタンリスト")]
     private List<Button> _buttons = new();
 
     [SerializeField]
-    [Header("HP Slider")]
+    [Header("体力スライダー")]
     private Slider _hpSlider;
 
     [SerializeField]
-    [Header("MP Slider")]
+    [Header("MPスライダー")]
     private Slider _mpSlider;
 
     [SerializeField]
-    [Header("Attack Button")]
+    [Header("攻撃ボタン")]
     private Button _attackButton;
 
     [SerializeField]
-    [Header("Defence Button")]
+    [Header("防御ボタン")]
     private Button _defenceButton;
 
     [SerializeField]
-    [Header("Portion Attack Button")]
+    [Header("ポーション攻撃ボタン")]
     private Button _portionAttackButton;
 
     [SerializeField]
-    [Header("Portion Recovery Button")]
+    [Header("ポーション回復ボタン")]
     private Button _portionRecoveryButton;
 
     [SerializeField]
-    [Header("Log Text")]
+    [Header("ログテキスト")]
     private Text _logText;
 
     [SerializeField]
-    [Header("Battle System")]
+    [Header("バトルシステムクラス")]
     private BattleManager _battleSystem;
 
     #endregion
@@ -49,16 +49,10 @@ public class PlayerView : MonoBehaviour
 
     private void Start()
     {
-        // リストでボタンごとに関数を登録したい
-
-        //_attackButton.onClick.AddListener(() => Attack());
-        // これでVoidでも呼び出せる
-
-
-        _attackButton.onClick.AddListener(Attack);
-        _defenceButton.onClick.AddListener(Defence);
-        _portionAttackButton.onClick.AddListener(PortionAttack);
-        _portionRecoveryButton.onClick.AddListener(MPRecovery);
+        _attackButton.onClick.AddListener(() => Attack());
+        _defenceButton.onClick.AddListener(() => Defence());
+        _portionAttackButton.onClick.AddListener(() => PortionAttack());
+        _portionRecoveryButton.onClick.AddListener(() => MPRecovery());
     }
 
     #endregion

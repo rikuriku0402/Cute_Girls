@@ -16,11 +16,11 @@ public class PlayerData : MonoBehaviour
     #region Inspector
 
     [SerializeField]
-    [Header("HP")]
+    [Header("体力(HP)")]
     private IntReactiveProperty _hp = new();
 
     [SerializeField]
-    [Header("MP")]
+    [Header("マナポイント(MP)")]
     private IntReactiveProperty _mp = new();
 
     #endregion
@@ -37,10 +37,19 @@ public class PlayerData : MonoBehaviour
 
     #region Method
 
+    /// <summary>
+    /// プレイヤーがダメージを受ける関数
+    /// </summary>
     public void HpDamage(int anyValue) => Hp.Value -= anyValue;
 
+    /// <summary>
+    /// プレイヤーMpを減らす関数
+    /// </summary>
     public void MpDamage(int anyValue) => Mp.Value -= anyValue;
 
+    /// <summary>
+    /// プレイヤーのポーションを回復する関数
+    /// </summary>
     public void MpRecovery(int anyValue) => Mp.Value += anyValue;
 
     #endregion

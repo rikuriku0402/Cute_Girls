@@ -5,12 +5,17 @@ using UnityEngine;
 public class Goal : MonoBehaviour, IGoal
 {
     [SerializeField]
-    [Header("ゴール後にどこのシーンに飛ぶか")]
-    string _sceneName;
+    [Header("クリアキャンバス")]
+    private Canvas _clearCanvas;
+
+    private void Start()
+    {
+        _clearCanvas.gameObject.SetActive(false);
+    }
 
     public void GoalClear()
     {
         print("ゴール");
-        SceneLoader.SceneChange(_sceneName);
+        _clearCanvas.gameObject.SetActive(true);
     }
 }

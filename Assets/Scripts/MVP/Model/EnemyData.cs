@@ -30,8 +30,14 @@ public class EnemyData : MonoBehaviour
 
     #region Method
 
-    public void Damage(int anyValue) => Hp.Value -= anyValue;
+    /// <summary>
+    /// 敵がダメージを受ける関数
+    /// </summary>
+    public void HpDamage(int anyValue) => Hp.Value -= anyValue;
 
+    /// <summary>
+    /// 体力を初期値に戻す関数
+    /// </summary>
     public void Init()
     {
         Hp.Value = 100;

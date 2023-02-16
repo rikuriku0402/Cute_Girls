@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cysharp.Threading.Tasks;
+using System;
 
 public class SelectCharacter : MonoBehaviour
 {
+    public int CharaNum => _charaNum;
+
     [SerializeField]
     [Header("キャラの名前テキスト")]
     private Text _charaText;
-
-    [SerializeField]
-    [Header("キャンバス")]
-    private Canvas _canvas;
 
     [SerializeField]
     [Header("キャラ")]
@@ -25,14 +25,25 @@ public class SelectCharacter : MonoBehaviour
     [Header("ゲームスタートボタン")]
     private Button _gameStartButton;
 
+    [SerializeField]
+    [Header("キャンバスグループ")]
+    private CanvasGroup _canvasGroup;
+
     private CharacterType _type;
+
+    private int _charaNum;
 
     private void Start()
     {
+        _charaNum = -1;
         _type = CharacterType.None;
         _gameStartButton.onClick.AddListener(() => GameStart());
     }
 
+    /// <summary>
+    /// 助けにキャラクターを選ぶ関数
+    /// </summary>
+    /// <param name="charaNum">キャラクターナンバー</param>
     public void Character(int charaNum)
     {
         switch (charaNum)
@@ -67,11 +78,13 @@ public class SelectCharacter : MonoBehaviour
                 _charaText.text = CharacterType.Oharu.ToString();
                 break;
         }
-
+        _charaNum = charaNum;
     }
 
-
-    public void GameStart()
+    /// <summary>
+    /// ゲームを開始する関数
+    /// </summary>
+    public async void GameStart()
     {
         if (_type == CharacterType.None)
         {
@@ -81,8 +94,14 @@ public class SelectCharacter : MonoBehaviour
         {
             GameManager.Instance.ChangeGameMode(true);
             _charaText.text = _type.ToString() + "を助けに行く";
-            _canvas.gameObject.SetActive(false);
-            var anyIdol = Instantiate(_anyIdol[(int)_type], _spawnPos.position, Quaternion.identity); ;
+            Instantiate(_anyIdol[(int)_type], _spawnPos.position, Quaternion.identity);
+            await GameStartFade();
         }
+    }
+
+    private async UniTask GameStartFade()
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(2f));
+        CanvasGroupExtensions.FadeOut(_canvasGroup, 2f);
     }
 }

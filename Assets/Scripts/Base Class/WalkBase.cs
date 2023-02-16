@@ -4,7 +4,6 @@ using UnityEngine;
 using Zenject;
 using UniRx;
 using UniRx.Triggers;
-using System;
 
 public class WalkBase : MonoBehaviour
 {
@@ -25,9 +24,9 @@ public class WalkBase : MonoBehaviour
 
     void Start()
     {
-        this.UpdateAsObservable().Subscribe(x => MovePlayer());
-        TryGetComponent(out _animator);
-        TryGetComponent(out _rb);
+        this.UpdateAsObservable().Subscribe(x => MovePlayer()).AddTo(this);
+        _animator = GetComponent<Animator>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     void MovePlayer()
@@ -68,6 +67,9 @@ public class WalkBase : MonoBehaviour
         if (collision.TryGetComponent(out IGoal goal))
         {
             goal.GoalClear();
+            _rb.velocity = new();
+            _animator.SetBool("Run", false);
+            GameManager.Instance.ChangeGameMode(false);
         }
 
         if (collision.TryGetComponent(out IBattle enemy))
