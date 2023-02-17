@@ -8,9 +8,9 @@ public class UIManager : MonoBehaviour
 {
     public Canvas BattleCanvas => _battleCanvas;
 
-    const float MOVE_Y = 50f;
+    const float MOVE_Y = 50f;// どのくらい上に動くか
 
-    const float WAIT_TIME = 0.8f;
+    const float MOVE_TIME = 0.8f;// 何秒で上に行くか
 
     [SerializeField]
     [Header("バトルキャンバス")]
@@ -36,9 +36,17 @@ public class UIManager : MonoBehaviour
     [Header("プレイヤーのダメージテキスト")]
     private CanvasGroup _playerText;
 
-    private Vector3 _enemyTextPosition = new Vector3(-113f, -65f, 0f);
+    [SerializeField]
+    [Header("選択ページ1")]
+    private GameObject _page_1;
 
-    private Vector3 _playerTextPosition = new Vector3(100f, -34f, 0f);
+    [SerializeField]
+    [Header("選択ページ2")]
+    private GameObject _page_2;
+
+    private Vector3 _enemyTextPosition = new Vector3(-113f, -65f, 0f);// 固定値
+
+    private Vector3 _playerTextPosition = new Vector3(100f, -34f, 0f);// 固定値
 
     private void Start()
     {
@@ -50,25 +58,44 @@ public class UIManager : MonoBehaviour
 
     public void EnemyDamageTextPopUp(float value)
     {
-        _enemyText.alpha = 1f;// 初期値に戻す
-
-        _enemyDamageText.transform.localPosition = _enemyTextPosition;
-        _enemyDamageText.text = value.ToString();
-
-        DOTween.Sequence()
-            .Append(_enemyDamageText.transform.DOLocalMoveY(MOVE_Y, WAIT_TIME))
-            .Join(CanvasGroupExtensions.FadeOut(_enemyText, WAIT_TIME));
+        FadeInOutText(_enemyText, _enemyDamageText, value, _enemyTextPosition);
     }
 
     public void PlayerDamageTextPopUp(float value)
     {
-        _playerText.alpha = 1f;// 初期値に戻す
+        FadeInOutText(_playerText, _playerDamageText, value, _playerTextPosition);
+    }
 
-        _playerDamageText.transform.localPosition = _playerTextPosition;
-        _playerDamageText.text = value.ToString();
+    /// <summary>
+    /// テキストをポップアップさせたり
+    /// 表示非表示を切り替えるための関数
+    /// </summary>
+    private void FadeInOutText(CanvasGroup canvasGroup, Text damageText, float value, Vector3 vector3)
+    {
+        canvasGroup.alpha = 1f;// 初期値に戻す
+
+        damageText.transform.localPosition = vector3;
+        damageText.text = value.ToString();
 
         DOTween.Sequence()
-            .Append(_playerDamageText.transform.DOLocalMoveY(MOVE_Y, WAIT_TIME))
-            .Join(CanvasGroupExtensions.FadeOut(_playerText, WAIT_TIME));
+            .Append(damageText.transform.DOLocalMoveY(MOVE_Y, MOVE_TIME))
+            .Join(CanvasGroupExtensions.FadeOut(canvasGroup, MOVE_TIME));
+    }
+
+    /// <summary>
+    /// アクション選択画面を切り替えるための関数
+    /// </summary>
+    public void ActionPageChange()
+    {
+        if (_page_1.activeSelf)
+        {
+            _page_1.gameObject.SetActive(false);
+            _page_2.gameObject.SetActive(true);
+        }
+        else
+        {
+            _page_1.gameObject.SetActive(true);
+            _page_2.gameObject.SetActive(false);
+        }
     }
 }

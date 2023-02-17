@@ -88,6 +88,7 @@ public class BattleManager : MonoBehaviour
         _playerData.MpDamage(_portionMp);
         print("防御");
         await UniTask.Delay(TimeSpan.FromSeconds(1f));
+        _uiManager.PlayerDamageTextPopUp(_enemyAttack);
         _playerData.HpDamage(allAttack);
         HpCheck();
     }
@@ -99,8 +100,10 @@ public class BattleManager : MonoBehaviour
     {
         MPCheck();
         _enemyData.HpDamage(_portionAttack);
-        _playerData.MpDamage(_portionMp);
+        _uiManager.EnemyDamageTextPopUp(_portionAttack);
         await UniTask.Delay(TimeSpan.FromSeconds(1f));
+        _uiManager.PlayerDamageTextPopUp(_enemyAttack);
+        _playerData.MpDamage(_portionMp);
         _playerData.HpDamage(_enemyAttack);
         HpCheck();
     }
@@ -113,9 +116,10 @@ public class BattleManager : MonoBehaviour
         int allAttack = _enemyAttack + 10;// マジックナンバー
         _playerData.MpRecovery(_mpRecovery);
         await UniTask.Delay(TimeSpan.FromSeconds(1f));
+        _uiManager.PlayerDamageTextPopUp(allAttack);
         _playerData.HpDamage(allAttack);
 
-        if (_mpRecovery <= 150)
+        if (_playerData.Mp.Value >= 150)
         {
             Debug.Log("MPマックス");
             _playerData.Mp.Value = 150;
