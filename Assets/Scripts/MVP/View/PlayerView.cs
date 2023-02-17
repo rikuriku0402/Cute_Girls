@@ -36,8 +36,20 @@ public class PlayerView : MonoBehaviour
     private Button _portionRecoveryButton;
 
     [SerializeField]
+    [Header("ポーション回復ボタン")]
+    private Button _hpRecoveryButton;
+
+    [SerializeField]
     [Header("ログテキスト")]
     private Text _logText;
+
+    [SerializeField]
+    [Header("ログテキスト")]
+    private Text _hpText;
+
+    [SerializeField]
+    [Header("ログテキスト")]
+    private Text _mpText;
 
     [SerializeField]
     [Header("バトルシステムクラス")]
@@ -53,15 +65,32 @@ public class PlayerView : MonoBehaviour
         _defenceButton.onClick.AddListener(() => Defence());
         _portionAttackButton.onClick.AddListener(() => PortionAttack());
         _portionRecoveryButton.onClick.AddListener(() => MPRecovery());
+        _hpRecoveryButton.onClick.AddListener(() => HPRecovery());
     }
 
     #endregion
 
     #region Method
 
-    public void SetHP(int hpCount) => _hpSlider.value = hpCount;
+    public void SetHP(int hp)
+    {
+        _hpSlider.value = hp;
+        _hpText.text = hp.ToString() + "/" + _hpSlider.maxValue;
+        if (hp <= 0)
+        {
+            _hpText.text = 0 + "/" + _hpSlider.maxValue;
+        }
+    }
 
-    public void SetMP(int mpCount) => _mpSlider.value = mpCount;
+    public void SetMP(int mp)
+    {
+        _mpSlider.value = mp;
+        _mpText.text = mp.ToString() + "/" + _mpSlider.maxValue;
+        if (mp <= 0)
+        {
+            _mpText.text = 0 + "/" + _mpSlider.maxValue;
+        }
+    }
 
     #endregion
 
@@ -110,6 +139,17 @@ public class PlayerView : MonoBehaviour
         _buttons.ForEach(x => x.interactable = false);
         _logText.text = "MPを" + _battleSystem.MPPortionRecovery + "回復した";
         await _battleSystem.MPRecovery();
+        _buttons.ForEach(x => x.interactable = true);
+    }
+
+    /// <summary>
+    /// HP回復ボタンに登録する関数
+    /// </summary>
+    private async void HPRecovery()
+    {
+        _buttons.ForEach(x => x.interactable = false);
+        _logText.text = "HPを" + _battleSystem.HPPoritonRecovery + "回復した";
+        await _battleSystem.HPRecovery();
         _buttons.ForEach(x => x.interactable = true);
     }
 

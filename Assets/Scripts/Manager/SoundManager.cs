@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
@@ -15,10 +16,10 @@ public class SoundManager : MonoBehaviour
     [Header("BGMŒn")]
     SoundBGM[] _soundBGM;
 
-    private void Awake()
+    private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
-        PlayBGM(BGMType.Title);
+        FirstBGM();
     }
 
     /// <summary>BGM‚ğ•Ï‚¦‚éŠÖ”</summary>
@@ -77,8 +78,22 @@ public class SoundManager : MonoBehaviour
         _audioSource.UnPause();
     }
 
+    private void FirstBGM()
+    {
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Title":
+                PlayBGM(BGMType.Title);
+                break;
+
+            case "Game":
+                PlayBGM(BGMType.Game);
+                break;
+        }
+    }
+
     [Serializable]
-    public class SoundSFX
+    private class SoundSFX
     {
         public AudioClip Clip => _clip;
 
@@ -92,7 +107,7 @@ public class SoundManager : MonoBehaviour
     }
 
     [Serializable]
-    public class SoundBGM
+    private class SoundBGM
     {
         public AudioClip Clip => _clip;
 

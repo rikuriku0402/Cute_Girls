@@ -16,6 +16,8 @@ public class BattleManager : MonoBehaviour
 
     public int MPPortionRecovery => _mpRecovery;
 
+    public int HPPoritonRecovery => _hpRecovery;
+
     #endregion
 
     #region Inspector
@@ -45,6 +47,10 @@ public class BattleManager : MonoBehaviour
     private int _mpRecovery;
 
     [SerializeField]
+    [Header("どのくらいHPを回復させるか")]
+    private int _hpRecovery;
+
+    [SerializeField]
     [Header("消費MP")]
     private int _portionMp;
 
@@ -60,6 +66,10 @@ public class BattleManager : MonoBehaviour
     [Header("UIManager")]
     private UIManager _uiManager;
 
+    [SerializeField]
+    [Header("SoundManager")]
+    private SoundManager _soundManager;
+
     #endregion
 
     #region Method
@@ -69,7 +79,8 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public async UniTask Attack()
     {
-        print("敵に攻撃");
+        _soundManager.PlaySFX(SFXType.Attack);
+        Debug.Log("敵に攻撃");
         _enemyData.HpDamage(_playerAttack);
         _uiManager.EnemyDamageTextPopUp(_playerAttack);
         await UniTask.Delay(TimeSpan.FromSeconds(1.2f));
@@ -83,12 +94,13 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public async UniTask Defence()
     {
+        _soundManager.PlaySFX(SFXType.Defence);
         MPCheck();
-        int allAttack = _enemyAttack - 10;// マジックナンバー
         _playerData.MpDamage(_portionMp);
         print("防御");
         await UniTask.Delay(TimeSpan.FromSeconds(1f));
-        _uiManager.PlayerDamageTextPopUp(_enemyAttack);
+        int allAttack = _enemyAttack - _defence;
+        _uiManager.PlayerDamageTextPopUp(allAttack);
         _playerData.HpDamage(allAttack);
         HpCheck();
     }
@@ -98,6 +110,7 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public async UniTask Portion()
     {
+        _soundManager.PlaySFX(SFXType.Portion);
         MPCheck();
         _enemyData.HpDamage(_portionAttack);
         _uiManager.EnemyDamageTextPopUp(_portionAttack);
@@ -113,9 +126,10 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public async UniTask MPRecovery()
     {
-        int allAttack = _enemyAttack + 10;// マジックナンバー
+        _soundManager.PlaySFX(SFXType.PoritionRecovery);
         _playerData.MpRecovery(_mpRecovery);
         await UniTask.Delay(TimeSpan.FromSeconds(1f));
+        int allAttack = _enemyAttack + 10;// マジックナンバー
         _uiManager.PlayerDamageTextPopUp(allAttack);
         _playerData.HpDamage(allAttack);
 
@@ -123,6 +137,24 @@ public class BattleManager : MonoBehaviour
         {
             Debug.Log("MPマックス");
             _playerData.Mp.Value = 150;
+        }
+        HpCheck();
+    }
+
+    public async UniTask HPRecovery()
+    {
+        _soundManager.PlaySFX(SFXType.HpRecovery);
+        int allAttack = _enemyAttack + 10;// マジックナンバー
+        _playerData.HpRecovery(_hpRecovery);
+        _playerData.MpDamage(_portionMp);
+        await UniTask.Delay(TimeSpan.FromSeconds(1f));
+        _uiManager.PlayerDamageTextPopUp(allAttack);
+        _playerData.HpDamage(allAttack);
+
+        if (_playerData.Hp.Value >= 100)
+        {
+            Debug.Log("HPマックス");
+            _playerData.Hp.Value = 100;
         }
         HpCheck();
     }
@@ -135,10 +167,12 @@ public class BattleManager : MonoBehaviour
         if (_playerData.Hp.Value <= 0)
         {
             Debug.Log("ゲームオーバー");
+            _soundManager.PlayBGM(BGMType.GameOver);
         }
         else if (_enemyData.Hp.Value <= 0)
         {
             Debug.Log("ゲームクリア");
+            _soundManager.PlaySFX(SFXType.BattleWin);
             _enemyData.Init();
             CanvasFalse();
         }

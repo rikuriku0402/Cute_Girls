@@ -4,6 +4,9 @@ public enum SFXType
     Defence,
     Portion,
     PoritionRecovery,
+    HpRecovery,
     Button,
-    Click
+    Click,
+    Death,
+    BattleWin
 }

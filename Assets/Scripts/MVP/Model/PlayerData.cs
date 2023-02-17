@@ -52,5 +52,9 @@ public class PlayerData : MonoBehaviour
     /// </summary>
     public void MpRecovery(int anyValue) => Mp.Value += anyValue;
 
+    /// <summary>
+    /// Hp‚ğ‘‚â‚·ŠÖ”
+    /// </summary>
+    public void HpRecovery(int anuValue) => Hp.Value += anuValue;
     #endregion
 }

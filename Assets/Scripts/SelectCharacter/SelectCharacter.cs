@@ -29,6 +29,10 @@ public class SelectCharacter : MonoBehaviour
     [Header("キャンバスグループ")]
     private CanvasGroup _canvasGroup;
 
+    [SerializeField]
+    [Header("SoundManager")]
+    private SoundManager _soundManager;
+
     private CharacterType _type;
 
     private int _charaNum;
@@ -46,6 +50,7 @@ public class SelectCharacter : MonoBehaviour
     /// <param name="charaNum">キャラクターナンバー</param>
     public void Character(int charaNum)
     {
+        _soundManager.PlaySFX(SFXType.Click);
         switch (charaNum)
         {
             case 0:
@@ -86,6 +91,7 @@ public class SelectCharacter : MonoBehaviour
     /// </summary>
     public async void GameStart()
     {
+        _soundManager.PlaySFX(SFXType.Button);
         if (_type == CharacterType.None)
         {
             _charaText.text = "助けに行くキャラを選んでください";

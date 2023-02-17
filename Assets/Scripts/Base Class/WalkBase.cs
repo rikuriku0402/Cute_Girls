@@ -15,6 +15,10 @@ public class WalkBase : MonoBehaviour
     [Header("UIManager")]
     private UIManager _uiManager;
 
+    [SerializeField]
+    [Header("SoundManager")]
+    private SoundManager _soundManager;
+
     [Inject]
     private IInputProbider _inputProvider;
 
@@ -27,6 +31,27 @@ public class WalkBase : MonoBehaviour
         this.UpdateAsObservable().Subscribe(x => MovePlayer()).AddTo(this);
         _animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out IGoal goal))
+        {
+            goal.GoalClear();
+            _rb.velocity = new();
+            _animator.SetBool("Run", false);
+            GameManager.Instance.ChangeGameMode(false);
+            _soundManager.PlayBGM(BGMType.GameClear);
+        }
+
+        if (collision.TryGetComponent(out IBattle enemy))
+        {
+            enemy.GetBattle(_uiManager.BattleCanvas.gameObject);
+            _rb.velocity = new();
+            _animator.SetBool("Run", false);
+            GameManager.Instance.ChangeGameMode(false);
+            _soundManager.PlayBGM(BGMType.Battle);
+        }
     }
 
     void MovePlayer()
@@ -60,24 +85,5 @@ public class WalkBase : MonoBehaviour
     private void Attack()
     {
         _animator.SetTrigger("Attack");
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent(out IGoal goal))
-        {
-            goal.GoalClear();
-            _rb.velocity = new();
-            _animator.SetBool("Run", false);
-            GameManager.Instance.ChangeGameMode(false);
-        }
-
-        if (collision.TryGetComponent(out IBattle enemy))
-        {
-            enemy.GetBattle(_uiManager.BattleCanvas.gameObject);
-            _rb.velocity = new();
-            _animator.SetBool("Run", false);
-            GameManager.Instance.ChangeGameMode(false);
-        }
     }
 }
