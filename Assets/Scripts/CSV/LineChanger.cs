@@ -30,7 +30,6 @@ public class LineChanger : MonoBehaviour
     public void CharacterNumber()
     {
         if (_selectCharacter.CharaNum == -1) return;
-        Debug.Log("スペースが押された");
 
         Debug.Log(_selectCharacter.CharaNum);
         string[] strings = _csvReader.GetLines(_selectCharacter.CharaNum);
