@@ -40,21 +40,34 @@ public class PlayerData : MonoBehaviour
     /// <summary>
     /// プレイヤーがダメージを受ける関数
     /// </summary>
-    public void HpDamage(int anyValue) => Hp.Value -= anyValue;
-
-    /// <summary>
-    /// プレイヤーMpを減らす関数
-    /// </summary>
-    public void MpDamage(int anyValue) => Mp.Value -= anyValue;
-
-    /// <summary>
-    /// プレイヤーのポーションを回復する関数
-    /// </summary>
-    public void MpRecovery(int anyValue) => Mp.Value += anyValue;
+    public void HpDamage(int anyValue)
+    {
+        Hp.Value -= anyValue;
+    }
 
     /// <summary>
     /// Hpを増やす関数
     /// </summary>
-    public void HpRecovery(int anuValue) => Hp.Value += anuValue;
+    public void HpRecovery(int anuValue)
+    {
+        Hp.Value += anuValue;
+    }
+
+    /// <summary>
+    /// プレイヤーMpを減らす関数
+    /// </summary>
+    public void MpDamage(int anyValue)
+    {
+        Mp.Value -= anyValue;
+    }
+
+    /// <summary>
+    /// プレイヤーのポーションを回復する関数
+    /// </summary>
+    public void MpRecovery(int anyValue)
+    {
+        Mp.Value += anyValue;
+    }
+
     #endregion
 }

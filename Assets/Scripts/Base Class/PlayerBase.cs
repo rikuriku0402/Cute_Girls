@@ -5,7 +5,7 @@ using Zenject;
 using UniRx;
 using UniRx.Triggers;
 
-public class WalkBase : MonoBehaviour
+public class PlayerBase : MonoBehaviour
 {
     [SerializeField]
     [Header("移動スピード")]

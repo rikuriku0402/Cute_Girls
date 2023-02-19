@@ -12,11 +12,19 @@ public class BattleManager : MonoBehaviour
 
     public int EnemyAttack => _enemyAttack;
 
-    public int PortionAttack => _portionAttack;
+    public int MagicAttack => _magicAttack;
 
     public int MPPortionRecovery => _mpRecovery;
 
     public int HPPoritonRecovery => _hpRecovery;
+
+    public int AllDamage => _allDamage;
+
+    #endregion
+
+    #region Const
+
+    const float WAIT_TIME = 1.2f;
 
     #endregion
 
@@ -39,8 +47,8 @@ public class BattleManager : MonoBehaviour
     private int _playerAttack;
 
     [SerializeField]
-    [Header("ポーション攻撃力")]
-    private int _portionAttack;
+    [Header("魔法攻撃力")]
+    private int _magicAttack;
 
     [SerializeField]
     [Header("どのくらいMPを回復させるか")]
@@ -59,16 +67,18 @@ public class BattleManager : MonoBehaviour
     private int _enemyAttack;
 
     [SerializeField]
-    [Header("バトルキャンバス")]
-    private Canvas _BattleCanvas;
-
-    [SerializeField]
     [Header("UIManager")]
     private UIManager _uiManager;
 
     [SerializeField]
     [Header("SoundManager")]
     private SoundManager _soundManager;
+
+    [SerializeField]
+    [Header("SceneManager")]
+    private SceneLoader _sceneLoader;
+
+    private int _allDamage;
 
     #endregion
 
@@ -83,10 +93,13 @@ public class BattleManager : MonoBehaviour
         Debug.Log("敵に攻撃");
         _enemyData.HpDamage(_playerAttack);
         _uiManager.EnemyDamageTextPopUp(_playerAttack);
-        await UniTask.Delay(TimeSpan.FromSeconds(1.2f));
+        _uiManager.LogText.text = "Playerが敵に" + _playerAttack + "与えた";
+        await UniTask.Delay(TimeSpan.FromSeconds(WAIT_TIME));
+        _uiManager.LogText.text = "敵がPlayerに" + _enemyAttack + "与えた";
+        BattleCheck();
         _uiManager.PlayerDamageTextPopUp(_enemyAttack);
         _playerData.HpDamage(_enemyAttack);
-        HpCheck();
+        BattleCheck();
     }
 
     /// <summary>
@@ -94,31 +107,68 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public async UniTask Defence()
     {
-        _soundManager.PlaySFX(SFXType.Defence);
-        MPCheck();
-        _playerData.MpDamage(_portionMp);
-        print("防御");
-        await UniTask.Delay(TimeSpan.FromSeconds(1f));
-        int allAttack = _enemyAttack - _defence;
-        _uiManager.PlayerDamageTextPopUp(allAttack);
-        _playerData.HpDamage(allAttack);
-        HpCheck();
+
+        if (_playerData.Mp.Value <= 0)
+        {
+            Debug.Log("MPが足りないよ");
+            _uiManager.LogText.text = "MPが足りないよ";
+            _playerData.Mp.Value = 0;
+            return;
+        }
+        else if (_playerData.Mp.Value <= _portionMp)
+        {
+            Debug.Log("MPが足りないよ");
+            _uiManager.LogText.text = "MPが足りないよ"; 
+            return;
+        }
+        else
+        {
+            _allDamage = 0;
+            _soundManager.PlaySFX(SFXType.Defence);
+            _playerData.MpDamage(_portionMp);
+            Debug.Log("防御");
+            await UniTask.Delay(TimeSpan.FromSeconds(WAIT_TIME));
+            BattleCheck();
+            _allDamage = _enemyAttack - _defence;
+            _uiManager.PlayerDamageTextPopUp(_allDamage);
+            _playerData.HpDamage(_allDamage);
+            _uiManager.LogText.text = "防御した" + _allDamage + "くらった";
+            BattleCheck();
+        }
     }
 
     /// <summary>
     /// ポーションで攻撃する関数
     /// </summary>
-    public async UniTask Portion()
+    public async UniTask Magic()
     {
-        _soundManager.PlaySFX(SFXType.Portion);
-        MPCheck();
-        _enemyData.HpDamage(_portionAttack);
-        _uiManager.EnemyDamageTextPopUp(_portionAttack);
-        await UniTask.Delay(TimeSpan.FromSeconds(1f));
-        _uiManager.PlayerDamageTextPopUp(_enemyAttack);
-        _playerData.MpDamage(_portionMp);
-        _playerData.HpDamage(_enemyAttack);
-        HpCheck();
+        if (_playerData.Mp.Value <= 0)
+        {
+            Debug.Log("MPが足りないよ");
+            _uiManager.LogText.text = "MPが足りないよ";
+            _playerData.Mp.Value = 0;
+            return;
+        }
+        else if (_playerData.Mp.Value <= _portionMp)
+        {
+            Debug.Log("MPが足りないよ");
+            _uiManager.LogText.text = "MPが足りないよ";
+            return;
+        }
+        else
+        {
+            _soundManager.PlaySFX(SFXType.Portion);
+            _enemyData.HpDamage(_magicAttack);
+            _playerData.MpDamage(_portionMp);
+            _uiManager.EnemyDamageTextPopUp(_magicAttack);
+            _uiManager.LogText.text = "Playerが敵に" + _magicAttack + "与えた";
+            await UniTask.Delay(TimeSpan.FromSeconds(WAIT_TIME));
+            _uiManager.LogText.text = "敵がPlayerに" + _enemyAttack + "与えた";
+            BattleCheck();
+            _uiManager.PlayerDamageTextPopUp(_enemyAttack);
+            _playerData.HpDamage(_enemyAttack);
+            BattleCheck();
+        }
     }
 
     /// <summary>
@@ -126,55 +176,109 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public async UniTask MPRecovery()
     {
+        if (_playerData.Mp.Value <= 0)
+        {
+            Debug.Log("MPが足りないよ");
+            _uiManager.LogText.text = "MPが足りないよ";
+            _playerData.Mp.Value = 0;
+        }
+        else if (_playerData.Mp.Value >= 150)
+        {
+            _playerData.Mp.Value = 150;
+            _uiManager.LogText.text = "MPがマックスだよ";
+            return;
+        }
+
+        _allDamage = 0;
         _soundManager.PlaySFX(SFXType.PoritionRecovery);
         _playerData.MpRecovery(_mpRecovery);
-        await UniTask.Delay(TimeSpan.FromSeconds(1f));
-        int allAttack = _enemyAttack + 10;// マジックナンバー
-        _uiManager.PlayerDamageTextPopUp(allAttack);
-        _playerData.HpDamage(allAttack);
+        _uiManager.LogText.text = "MPを" + _mpRecovery + "回復した";
+        await UniTask.Delay(TimeSpan.FromSeconds(WAIT_TIME));
+        _uiManager.LogText.text = "敵がPlayerに" + _allDamage + "与えた";
+        BattleCheck();
+        _allDamage = _enemyAttack + 3;// マジックナンバー
+        _uiManager.PlayerDamageTextPopUp(_allDamage);
+        _playerData.HpDamage(_allDamage);
 
         if (_playerData.Mp.Value >= 150)
         {
             Debug.Log("MPマックス");
             _playerData.Mp.Value = 150;
         }
-        HpCheck();
-    }
-
-    public async UniTask HPRecovery()
-    {
-        _soundManager.PlaySFX(SFXType.HpRecovery);
-        int allAttack = _enemyAttack + 10;// マジックナンバー
-        _playerData.HpRecovery(_hpRecovery);
-        _playerData.MpDamage(_portionMp);
-        await UniTask.Delay(TimeSpan.FromSeconds(1f));
-        _uiManager.PlayerDamageTextPopUp(allAttack);
-        _playerData.HpDamage(allAttack);
-
-        if (_playerData.Hp.Value >= 100)
-        {
-            Debug.Log("HPマックス");
-            _playerData.Hp.Value = 100;
-        }
-        HpCheck();
+        BattleCheck();
     }
 
     /// <summary>
-    /// 体力をチェックする関数
+    /// HPを回復する関数
     /// </summary>
-    private void HpCheck()
+    public async UniTask HPRecovery()
+    {
+        if (_playerData.Mp.Value <= 0)
+        {
+            Debug.Log("MPが足りないよ");
+            _uiManager.LogText.text = "MPが足りないよ";
+            _playerData.Mp.Value = 0;
+            return;
+        }
+        else if (_playerData.Mp.Value <= _portionMp)
+        {
+            _uiManager.LogText.text = "MPが足りないよ";
+            return;
+        }
+        else if (_playerData.Hp.Value >= 100)
+        {
+            Debug.Log("HPマックス");
+            _uiManager.LogText.text = "HPマックスだよ";
+            _playerData.Hp.Value = 100;
+            return;
+        }
+        else
+        {
+            _allDamage = 0;
+
+            _soundManager.PlaySFX(SFXType.HpRecovery);
+            _allDamage = _enemyAttack + 3;// マジックナンバー
+            _playerData.MpDamage(_portionMp);
+            _playerData.HpRecovery(_hpRecovery);
+
+            if (_playerData.Hp.Value >= 100)
+            {
+                Debug.Log("HPマックス");
+                _uiManager.LogText.text = "HPマックスだよ";
+                _playerData.Hp.Value = 100;
+            }
+
+            _uiManager.LogText.text = "HPを" + _hpRecovery + "回復した";
+            await UniTask.Delay(TimeSpan.FromSeconds(WAIT_TIME));
+            _uiManager.LogText.text = "敵がPlayerに" + _allDamage + "与えた";
+            BattleCheck();
+            _uiManager.PlayerDamageTextPopUp(_allDamage);
+            _playerData.HpDamage(_allDamage);
+
+            BattleCheck();
+        }
+    }
+
+    /// <summary>
+    /// 体力をチェックして
+    /// ゲームクリアかゲームオーバーかを
+    /// 監視する関数
+    /// </summary>
+    private void BattleCheck()
     {
         if (_playerData.Hp.Value <= 0)
         {
             Debug.Log("ゲームオーバー");
             _soundManager.PlayBGM(BGMType.GameOver);
+            _sceneLoader.FadeInSceneChange("GameOver");
         }
         else if (_enemyData.Hp.Value <= 0)
         {
             Debug.Log("ゲームクリア");
             _soundManager.PlaySFX(SFXType.BattleWin);
+            _soundManager.PlayBGM(BGMType.Game);
             _enemyData.Init();
-            CanvasFalse();
+            _uiManager.CanvasFalse();
         }
         else
         {
@@ -182,25 +286,24 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// MPをチェックする関数
-    /// </summary>
-    private void MPCheck()
+    private void HpCheck()
     {
-        if (_playerData.Mp.Value <= 0)
+        if (_playerData.Hp.Value >= 100)
         {
-            Debug.Log("MPが足りないよ");
+            Debug.Log("HPマックス");
+            _playerData.Hp.Value = 100;
             return;
         }
     }
 
-    /// <summary>
-    /// キャンバスを非表示にする関数
-    /// </summary>
-    private void CanvasFalse()
+    private void MpCheck()
     {
-        _BattleCanvas.gameObject.SetActive(false);
-        GameManager.Instance.ChangeGameMode(true);
+        if (_playerData.Mp.Value <= 0)
+        {
+            Debug.Log("MPが足りないよ");
+            _playerData.Mp.Value = 0;
+            return;
+        }
     }
 
     #endregion

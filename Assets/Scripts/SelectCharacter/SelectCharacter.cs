@@ -35,6 +35,8 @@ public class SelectCharacter : MonoBehaviour
 
     private CharacterType _type;
 
+    private string[] _idolName = { "ひよみ", "あきこ", "ひとり", "ジュリエット", "かなえ", "はるみ", };
+
     private int _charaNum;
 
     private void Start()
@@ -55,32 +57,32 @@ public class SelectCharacter : MonoBehaviour
         {
             case 0:
                 _type = CharacterType.Hiyori;
-                _charaText.text = CharacterType.Hiyori.ToString();
+                _charaText.text = _idolName[(int)_type];
                 break;
 
             case 1:
                 _type = CharacterType.Aki;
-                _charaText.text = CharacterType.Aki.ToString();
+                _charaText.text = _idolName[(int)_type];
                 break;
 
             case 2:
                 _type = CharacterType.Hitoka;
-                _charaText.text = CharacterType.Hitoka.ToString();
+                _charaText.text = _idolName[(int)_type];
                 break;
 
             case 3:
                 _type = CharacterType.Julia;
-                _charaText.text = CharacterType.Julia.ToString();
+                _charaText.text = _idolName[(int)_type];
                 break;
 
             case 4:
                 _type = CharacterType.Kanami;
-                _charaText.text = CharacterType.Kanami.ToString();
+                _charaText.text = _idolName[(int)_type];
                 break;
 
             case 5:
                 _type = CharacterType.Oharu;
-                _charaText.text = CharacterType.Oharu.ToString();
+                _charaText.text = _idolName[(int)_type];
                 break;
         }
         _charaNum = charaNum;
@@ -99,7 +101,7 @@ public class SelectCharacter : MonoBehaviour
         else
         {
             GameManager.Instance.ChangeGameMode(true);
-            _charaText.text = _type.ToString() + "を助けに行く";
+            _charaText.text = _idolName[(int)_type] + "を助けに行く";
             Instantiate(_anyIdol[(int)_type], _spawnPos.position, Quaternion.identity);
             await GameStartFade();
         }

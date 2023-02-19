@@ -6,13 +6,20 @@ using UnityEngine.UI;
 public class LineChanger : MonoBehaviour
 {
     [SerializeField]
+    [Header("CSVを読み込むクラス")]
     private CSVReader _csvReader;
 
     [SerializeField]
+    [Header("行数")]
     private Text[] _lineTextField;
 
     [SerializeField]
+    [Header("セレクトキャラクター")]
     SelectCharacter _selectCharacter;
+
+    [SerializeField]
+    [Header("SceneLoader")]
+    private SceneLoader _sceneLoader;
 
     private int[] _lineNum = new int[6];
 
@@ -38,6 +45,7 @@ public class LineChanger : MonoBehaviour
         if (_lineNum[_selectCharacter.CharaNum] == strings.Length)
         {
             Debug.Log("シーンを変えてもいいよ");
+            _sceneLoader.FadeInSceneChange("GameClear");
             return;
         }
 

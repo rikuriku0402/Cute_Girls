@@ -28,20 +28,16 @@ public class PlayerView : MonoBehaviour
     private Button _defenceButton;
 
     [SerializeField]
-    [Header("ポーション攻撃ボタン")]
-    private Button _portionAttackButton;
+    [Header("魔法攻撃ボタン")]
+    private Button _magicAttackButton;
 
     [SerializeField]
-    [Header("ポーション回復ボタン")]
-    private Button _portionRecoveryButton;
+    [Header("魔法回復ボタン")]
+    private Button _magicRecoveryButton;
 
     [SerializeField]
     [Header("ポーション回復ボタン")]
     private Button _hpRecoveryButton;
-
-    [SerializeField]
-    [Header("ログテキスト")]
-    private Text _logText;
 
     [SerializeField]
     [Header("ログテキスト")]
@@ -52,8 +48,12 @@ public class PlayerView : MonoBehaviour
     private Text _mpText;
 
     [SerializeField]
-    [Header("バトルシステムクラス")]
+    [Header("BattleManager")]
     private BattleManager _battleSystem;
+
+    [SerializeField]
+    [Header("UIManager")]
+    private UIManager _uiManager;
 
     #endregion
 
@@ -63,8 +63,8 @@ public class PlayerView : MonoBehaviour
     {
         _attackButton.onClick.AddListener(() => Attack());
         _defenceButton.onClick.AddListener(() => Defence());
-        _portionAttackButton.onClick.AddListener(() => PortionAttack());
-        _portionRecoveryButton.onClick.AddListener(() => MPRecovery());
+        _magicAttackButton.onClick.AddListener(() => MagicAttack());
+        _magicRecoveryButton.onClick.AddListener(() => MPRecovery());
         _hpRecoveryButton.onClick.AddListener(() => HPRecovery());
     }
 
@@ -88,7 +88,8 @@ public class PlayerView : MonoBehaviour
         _mpText.text = mp.ToString() + "/" + _mpSlider.maxValue;
         if (mp <= 0)
         {
-            _mpText.text = 0 + "/" + _mpSlider.maxValue;
+            mp = 0;
+            _mpText.text = mp + "/" + _mpSlider.maxValue;
         }
     }
 
@@ -102,9 +103,7 @@ public class PlayerView : MonoBehaviour
     private async void Attack()
     {
         _buttons.ForEach(x => x.interactable = false);
-        _logText.text = "Playerが敵に" + _battleSystem.PlayerAttack + "与えた";
         await _battleSystem.Attack();
-        _logText.text = "敵がPlayerに" + _battleSystem.EnemyAttack + "与えた";
         _buttons.ForEach(x => x.interactable = true);
     }
 
@@ -114,7 +113,6 @@ public class PlayerView : MonoBehaviour
     private async void Defence()
     {
         _buttons.ForEach(x => x.interactable = false);
-        _logText.text = "防御した" + _battleSystem.EnemyAttack + "くらった";
         await _battleSystem.Defence();
         _buttons.ForEach(x => x.interactable = true);
     }
@@ -122,12 +120,10 @@ public class PlayerView : MonoBehaviour
     /// <summary>
     /// ポーションボタンに登録する関数
     /// </summary>
-    private async void PortionAttack()
+    private async void MagicAttack()
     {
         _buttons.ForEach(x => x.interactable = false);
-        _logText.text = "Playerが敵に" + _battleSystem.PortionAttack + "与えた";
-        await _battleSystem.Portion();
-        _logText.text = "敵がPlayerに" + _battleSystem.EnemyAttack + "与えた";
+        await _battleSystem.Magic();
         _buttons.ForEach(x => x.interactable = true);
     }
 
@@ -137,7 +133,6 @@ public class PlayerView : MonoBehaviour
     private async void MPRecovery()
     {
         _buttons.ForEach(x => x.interactable = false);
-        _logText.text = "MPを" + _battleSystem.MPPortionRecovery + "回復した";
         await _battleSystem.MPRecovery();
         _buttons.ForEach(x => x.interactable = true);
     }
@@ -148,7 +143,6 @@ public class PlayerView : MonoBehaviour
     private async void HPRecovery()
     {
         _buttons.ForEach(x => x.interactable = false);
-        _logText.text = "HPを" + _battleSystem.HPPoritonRecovery + "回復した";
         await _battleSystem.HPRecovery();
         _buttons.ForEach(x => x.interactable = true);
     }

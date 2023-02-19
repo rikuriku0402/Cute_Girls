@@ -8,5 +8,6 @@ public enum SFXType
     Button,
     Click,
     Death,
-    BattleWin
+    BattleWin,
+    SceneChange,
 }
