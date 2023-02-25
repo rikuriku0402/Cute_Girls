@@ -6,5 +6,6 @@ public enum CharacterType
     Julia,     // ˆÇƒWƒ…ƒŠƒA
     Kanami,    // ’Ò–ì‚©‚È‚İ
     Oharu,     // ¬ò‚Í‚é‚©
+    Riku,
     None,      // ‰½‚à‚È‚¢
 }

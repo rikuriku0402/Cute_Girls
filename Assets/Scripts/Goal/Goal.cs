@@ -8,11 +8,6 @@ public class Goal : MonoBehaviour, IGoal
     [Header("クリアキャンバス")]
     private Canvas _clearCanvas;
 
-    private void Start()
-    {
-        _clearCanvas.gameObject.SetActive(false);
-    }
-
     public void GoalClear()
     {
         print("ゴール");

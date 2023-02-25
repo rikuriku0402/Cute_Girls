@@ -5,6 +5,9 @@ using Zenject;
 using UniRx;
 using UniRx.Triggers;
 
+/// <summary>
+/// Player‚ÌŠî’êƒNƒ‰ƒX
+/// </summary>
 public class PlayerBase : MonoBehaviour
 {
     [SerializeField]
@@ -26,7 +29,7 @@ public class PlayerBase : MonoBehaviour
 
     private Rigidbody2D _rb;
 
-    void Start()
+    private void Start()
     {
         this.UpdateAsObservable().Subscribe(x => MovePlayer()).AddTo(this);
         _animator = GetComponent<Animator>();
@@ -38,23 +41,26 @@ public class PlayerBase : MonoBehaviour
         if (collision.TryGetComponent(out IGoal goal))
         {
             goal.GoalClear();
-            _rb.velocity = new();
-            _animator.SetBool("Run", false);
-            GameManager.Instance.ChangeGameMode(false);
+            WalkPause();
             _soundManager.PlayBGM(BGMType.GameClear);
         }
 
         if (collision.TryGetComponent(out IBattle enemy))
         {
             enemy.GetBattle(_uiManager.BattleCanvas.gameObject);
-            _rb.velocity = new();
-            _animator.SetBool("Run", false);
-            GameManager.Instance.ChangeGameMode(false);
+            WalkPause();
             _soundManager.PlayBGM(BGMType.Battle);
         }
     }
 
-    void MovePlayer()
+    private void WalkPause()
+    {
+        _rb.velocity = new();
+        _animator.SetBool("Run", false);
+        GameManager.Instance.ChangeGameMode(false);
+    }
+
+    private void MovePlayer()
     {
         if (GameManager.Instance.IsGame)
         {

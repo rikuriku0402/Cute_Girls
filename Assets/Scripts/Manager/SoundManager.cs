@@ -6,15 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
-    AudioSource _audioSource;// ‰¹‚ð–Â‚ç‚·‚½‚ß‚Ì‚à‚Ì
-
     [SerializeField]
     [Header("Œø‰Ê‰¹Œn")]
-    SoundSFX[] _soundSFX;
+    private SoundSFX[] _soundSFX;
 
     [SerializeField]
     [Header("BGMŒn")]
-    SoundBGM[] _soundBGM;
+    private SoundBGM[] _soundBGM;
+
+    private AudioSource _audioSource;// ‰¹‚ð–Â‚ç‚·‚½‚ß‚Ì‚à‚Ì
 
     private void Start()
     {

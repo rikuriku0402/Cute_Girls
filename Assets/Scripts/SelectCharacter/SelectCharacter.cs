@@ -14,16 +14,32 @@ public class SelectCharacter : MonoBehaviour
     private Text _charaText;
 
     [SerializeField]
-    [Header("キャラ")]
-    private GameObject[] _anyIdol;
+    [Header("ステージ上にでるキャラ")]
+    private GameObject[] _anyStageIdol;
 
     [SerializeField]
-    [Header("スポーン地点")]
-    private Transform _spawnPos;
+    [Header("キャンバスに配置するキャラ")]
+    private Image[] _anyCanvasIdol;
+
+    [SerializeField]
+    [Header("キャラクターボタン")]
+    private Button[] _characterButtons;
+
+    [SerializeField]
+    [Header("ステージスポーン地点")]
+    private Transform _stageSpawnPos;
+
+    [SerializeField]
+    [Header("キャンバススポーン地点")]
+    private Transform _canvasSpawnPos;
 
     [SerializeField]
     [Header("ゲームスタートボタン")]
     private Button _gameStartButton;
+
+    [SerializeField]
+    [Header("キャラトークキャンバス")]
+    private Canvas _charaTalkCanvas;
 
     [SerializeField]
     [Header("キャンバスグループ")]
@@ -35,54 +51,61 @@ public class SelectCharacter : MonoBehaviour
 
     private CharacterType _type;
 
-    private string[] _idolName = { "ひよみ", "あきこ", "ひとり", "ジュリエット", "かなえ", "はるみ", };
+    private string[] _charaName = { "ひよみ", "あきこ", "ひとり", "ジュリエット", "かなえ", "はるみ" };
 
     private int _charaNum;
 
     private void Start()
     {
+        for (int i = 0; i < _characterButtons.Length; i++)
+        {
+            var i1 = i;
+            _characterButtons[i].onClick.AddListener(() => Character(i1));
+        }
+
         _charaNum = -1;
         _type = CharacterType.None;
         _gameStartButton.onClick.AddListener(() => GameStart());
+
     }
 
     /// <summary>
     /// 助けにキャラクターを選ぶ関数
     /// </summary>
     /// <param name="charaNum">キャラクターナンバー</param>
-    public void Character(int charaNum)
+    private void Character(int charaNum)
     {
         _soundManager.PlaySFX(SFXType.Click);
         switch (charaNum)
         {
             case 0:
                 _type = CharacterType.Hiyori;
-                _charaText.text = _idolName[(int)_type];
+                _charaText.text = _charaName[(int)_type];
                 break;
 
             case 1:
                 _type = CharacterType.Aki;
-                _charaText.text = _idolName[(int)_type];
+                _charaText.text = _charaName[(int)_type];
                 break;
 
             case 2:
                 _type = CharacterType.Hitoka;
-                _charaText.text = _idolName[(int)_type];
+                _charaText.text = _charaName[(int)_type];
                 break;
 
             case 3:
                 _type = CharacterType.Julia;
-                _charaText.text = _idolName[(int)_type];
+                _charaText.text = _charaName[(int)_type];
                 break;
 
             case 4:
                 _type = CharacterType.Kanami;
-                _charaText.text = _idolName[(int)_type];
+                _charaText.text = _charaName[(int)_type];
                 break;
 
             case 5:
                 _type = CharacterType.Oharu;
-                _charaText.text = _idolName[(int)_type];
+                _charaText.text = _charaName[(int)_type];
                 break;
         }
         _charaNum = charaNum;
@@ -91,18 +114,20 @@ public class SelectCharacter : MonoBehaviour
     /// <summary>
     /// ゲームを開始する関数
     /// </summary>
-    public async void GameStart()
+    private async void GameStart()
     {
         _soundManager.PlaySFX(SFXType.Button);
         if (_type == CharacterType.None)
         {
-            _charaText.text = "助けに行くキャラを選んでください";
+            _charaText.text = "助けに行くキャラを選んでね！";
         }
         else
         {
             GameManager.Instance.ChangeGameMode(true);
-            _charaText.text = _idolName[(int)_type] + "を助けに行く";
-            Instantiate(_anyIdol[(int)_type], _spawnPos.position, Quaternion.identity);
+            _charaText.text = _charaName[(int)_type] + "を助けに行く";
+            Instantiate(_anyStageIdol[(int)_type], _stageSpawnPos.position, Quaternion.identity);
+            var anyIdol = Instantiate(_anyCanvasIdol[(int)_type], _canvasSpawnPos.localPosition, Quaternion.identity);
+            anyIdol.transform.SetParent(_charaTalkCanvas.transform, false);
             await GameStartFade();
         }
     }
@@ -111,5 +136,7 @@ public class SelectCharacter : MonoBehaviour
     {
         await UniTask.Delay(TimeSpan.FromSeconds(2f));
         CanvasGroupExtensions.FadeOut(_canvasGroup, 2f);
+        await UniTask.Delay(TimeSpan.FromSeconds(2f));
+        _canvasGroup.gameObject.SetActive(false);
     }
 }

@@ -36,4 +36,13 @@ public class SceneLoader : MonoBehaviour
         _soundManager.PlaySFX(SFXType.SceneChange);
         CanvasGroupExtensions.FadeInSceneChange(_fadeImage, _fadeTime, scene);
     }
+
+    public void Quit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
 }

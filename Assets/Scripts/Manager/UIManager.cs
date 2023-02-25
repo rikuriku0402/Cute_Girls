@@ -50,9 +50,15 @@ public class UIManager : MonoBehaviour
     [Header("ログテキスト")]
     private Text _logText;
 
+    [SerializeField]
+    [Header("詳細説明ボタン")]
+    private Button _detailButton;
+
     private Vector3 _enemyTextPosition = new Vector3(-113f, -65f, 0f);// 固定値
 
     private Vector3 _playerTextPosition = new Vector3(100f, -34f, 0f);// 固定値
+
+    private bool _isOpen;
 
     private void Start()
     {
@@ -113,5 +119,24 @@ public class UIManager : MonoBehaviour
     {
         _battleCanvas.gameObject.SetActive(false);
         GameManager.Instance.ChangeGameMode(true);
+    }
+
+
+    /// <summary>
+    /// アクションコマンドの説明イメージ
+    /// を開いたり閉じたりする関数
+    /// </summary>
+    public void DetailExplanationButton(Image image)
+    {
+        if (!_isOpen)
+        {
+            image.transform.DOScale(1f, 2f);
+            _isOpen = true;
+        }
+        else if (_isOpen)
+        {
+            image.transform.DOScale(0f, 2f);
+            _isOpen = false;
+        }
     }
 }

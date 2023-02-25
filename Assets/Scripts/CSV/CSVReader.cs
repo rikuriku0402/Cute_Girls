@@ -5,6 +5,8 @@ using System.IO;
 
 public class CSVReader : MonoBehaviour
 {
+    const string CSV_NAME = "CSV/Scenario";
+
     private TextAsset _csvFile;
 
     private List<string[]> _csvData = new List<string[]>();
@@ -15,7 +17,7 @@ public class CSVReader : MonoBehaviour
     
     private void Start()
     {
-        _csvFile = Resources.Load("CSV/Test3") as TextAsset;
+        _csvFile = Resources.Load(CSV_NAME) as TextAsset;
 
         StringReader reader = new StringReader(_csvFile.text);
 

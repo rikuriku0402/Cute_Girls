@@ -15,13 +15,23 @@ public class LineChanger : MonoBehaviour
 
     [SerializeField]
     [Header("セレクトキャラクター")]
-    SelectCharacter _selectCharacter;
+    private SelectCharacter _selectCharacter;
 
     [SerializeField]
     [Header("SceneLoader")]
     private SceneLoader _sceneLoader;
 
-    private int[] _lineNum = new int[6];
+    [SerializeField]
+    [Header("シナリオタイプ")]
+    private GameType _type;
+
+    private int[] _lineNum = new int[7];
+
+    private enum GameType
+    {
+        InGame,
+        GameClear
+    }
 
     private void Start()
     {
@@ -41,11 +51,8 @@ public class LineChanger : MonoBehaviour
         Debug.Log(_selectCharacter.CharaNum);
         string[] strings = _csvReader.GetLines(_selectCharacter.CharaNum);
 
-
         if (_lineNum[_selectCharacter.CharaNum] == strings.Length)
         {
-            Debug.Log("シーンを変えてもいいよ");
-            _sceneLoader.FadeInSceneChange("GameClear");
             return;
         }
 

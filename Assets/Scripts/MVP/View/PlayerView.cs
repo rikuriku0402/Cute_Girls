@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,6 +41,10 @@ public class PlayerView : MonoBehaviour
     private Button _hpRecoveryButton;
 
     [SerializeField]
+    [Header("必殺技ボタン")]
+    private Button _deathblowButton;
+
+    [SerializeField]
     [Header("ログテキスト")]
     private Text _hpText;
 
@@ -66,7 +71,9 @@ public class PlayerView : MonoBehaviour
         _magicAttackButton.onClick.AddListener(() => MagicAttack());
         _magicRecoveryButton.onClick.AddListener(() => MPRecovery());
         _hpRecoveryButton.onClick.AddListener(() => HPRecovery());
+        _deathblowButton.onClick.AddListener(() => Deathblow());
     }
+
 
     #endregion
 
@@ -144,6 +151,16 @@ public class PlayerView : MonoBehaviour
     {
         _buttons.ForEach(x => x.interactable = false);
         await _battleSystem.HPRecovery();
+        _buttons.ForEach(x => x.interactable = true);
+    }
+
+    /// <summary>
+    /// 必殺技ボタンに登録する関数
+    /// </summary>
+    private async void Deathblow()
+    {
+        _buttons.ForEach(x => x.interactable = false);
+        await _battleSystem.Deathblow();
         _buttons.ForEach(x => x.interactable = true);
     }
 
