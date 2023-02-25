@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SceneLoader : MonoBehaviour
 {
+    const string CREDIT = "Credit";
+
     [SerializeField]
     [Header("‘Ò‹@ŽžŠÔ")]
     private float _fadeTime;
@@ -35,6 +37,12 @@ public class SceneLoader : MonoBehaviour
     {
         _soundManager.PlaySFX(SFXType.SceneChange);
         CanvasGroupExtensions.FadeInSceneChange(_fadeImage, _fadeTime, scene);
+    }
+
+    public void CreditScene()
+    {
+        _soundManager.PlaySFX(SFXType.SceneChange);
+        FadeInSceneChange(CREDIT);
     }
 
     public void Quit()
