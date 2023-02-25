@@ -841,7 +841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf9ebac93fee4a44b53c56172e0aa31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textScrollSpeed: 63.4
+  _textScrollSpeed: 101.68
   _limitPos: 2212.478
   _sceneLoader: {fileID: 397653683}
 --- !u!1 &1943753350
