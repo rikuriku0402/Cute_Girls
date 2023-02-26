@@ -406,8 +406,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -796.06604}
-  m_SizeDelta: {x: 1592.0393, y: 2212.4778}
+  m_AnchoredPosition: {x: 0, y: -1069.1394}
+  m_SizeDelta: {x: 1592.0393, y: 2758.6248}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1138037595
 MonoBehaviour:
@@ -443,7 +443,7 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "<color=red><size=120>\u30AD\u30E3\u30B9\u30C8</size></color>\n\n\u308A\u304F\n\n\u3072\u3088\u307F\n\u3042\u304D\u3053\n\u3072\u3068\u308A\n\u30B8\u30E5\u30EA\u30A8\u30C3\u30C8\n\u304B\u306A\u3048\n\u306F\u308B\u307F\n\n<color=red><size=120>\u30C7\u30B6\u30A4\u30F3</size></color>\n\u30D0\u30F3\u30BF\u30F3\u30B2\u30FC\u30E0\u30A2\u30AB\u30C7\u30DF\u30FC\u9AD8\u7B49\u90E8\n\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u30C7\u30B6\u30A4\u30F3\u5C02\u653B21A\n\u4ECA\u54B2\u6708\n\n\u3044\u3089\u3059\u3068\u3084\n\n<color=red><size=120>\u30D5\u30A9\u30F3\u30C8</size></color>\n\n\u304B\u308F\u3044\u3044\u30D5\u30A9\u30F3\u30C8\u7BB1\uFF08JK
-    FONTS\uFF09"
+    FONTS\uFF09\n\n<color=red><size=120>\u97F3\u6E90</size></color>\n\nhttps://howlingindicator.net\n\u9B54\u738B\u9B42"
 --- !u!222 &1138037596
 CanvasRenderer:
   m_ObjectHideFlags: 0
