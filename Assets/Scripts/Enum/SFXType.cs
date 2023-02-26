@@ -5,6 +5,7 @@ public enum SFXType
     Portion,
     PoritionRecovery,
     HpRecovery,
+    Deathblow,
     Button,
     Click,
     Death,

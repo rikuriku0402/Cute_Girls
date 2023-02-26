@@ -89,6 +89,14 @@ public class SoundManager : MonoBehaviour
             case "Game":
                 PlayBGM(BGMType.Game);
                 break;
+
+            case "GameClear":
+                PlayBGM(BGMType.GameClear);
+                break;
+
+            case "GameOver":
+                PlayBGM(BGMType.GameOver);
+                break;
         }
     }
 

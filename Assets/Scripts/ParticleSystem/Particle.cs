@@ -61,6 +61,6 @@ public class Particle : MonoBehaviour
 
     public void ParticleInstantiate(ParticleSystem particle, Transform transform)
     {
-        Instantiate(particle, transform.position, transform.rotation);
+        Instantiate(particle, transform.position, transform.localRotation);
     }
 }

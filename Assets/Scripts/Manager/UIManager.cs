@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
     public Canvas BattleCanvas => _battleCanvas;
 
-    public Text LogText => _logText;
+    public TextMeshProUGUI LogText => _logText;
 
     const float MOVE_Y = 50f;// どのくらい上に動くか
 
@@ -24,7 +25,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     [Header("敵のダメージテキスト")]
-    private Text _enemyDamageText;
+    private TextMeshProUGUI _enemyDamageText;
 
     [SerializeField]
     [Header("敵のダメージテキスト")]
@@ -32,7 +33,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     [Header("プレイヤーのダメージテキスト")]
-    private Text _playerDamageText;
+    private TextMeshProUGUI _playerDamageText;
 
     [SerializeField]
     [Header("プレイヤーのダメージテキスト")]
@@ -48,7 +49,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     [Header("ログテキスト")]
-    private Text _logText;
+    private TextMeshProUGUI _logText;
 
     private Vector3 _enemyTextPosition = new Vector3(-113f, -65f, 0f);// 固定値
 
@@ -96,7 +97,7 @@ public class UIManager : MonoBehaviour
     /// テキストをポップアップさせたり
     /// 表示非表示を切り替えるための関数
     /// </summary>
-    private void FadeInOutText(CanvasGroup canvasGroup, Text damageText, float value, Vector3 vector3)
+    private void FadeInOutText(CanvasGroup canvasGroup, TextMeshProUGUI damageText, float value, Vector3 vector3)
     {
         canvasGroup.alpha = 1f;// 初期値に戻す
 

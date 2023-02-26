@@ -305,7 +305,7 @@ public class BattleManager : MonoBehaviour
 
             _allDamage = _magicAttack + _magicAttack;
 
-            _soundManager.PlaySFX(SFXType.Portion);
+            _soundManager.PlaySFX(SFXType.Deathblow);
             _enemyData.HpDamage(_allDamage);
             _playerData.MpDamage(mpAllDamage);
             _particle.ParticleInstantiate(_particle.DeathblowParticle, _particle.EnemyPos);

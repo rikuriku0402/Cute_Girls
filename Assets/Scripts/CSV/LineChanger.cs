@@ -43,6 +43,7 @@ public class LineChanger : MonoBehaviour
 
         if (_lineNum[_selectCharacter.CharaNum] == strings.Length)
         {
+            _sceneLoader.FadeInSceneChange("GameClear");
             return;
         }
 
