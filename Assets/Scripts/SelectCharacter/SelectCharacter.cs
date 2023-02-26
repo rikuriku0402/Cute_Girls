@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
 using System;
+using TMPro;
 
 public class SelectCharacter : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class SelectCharacter : MonoBehaviour
 
     [SerializeField]
     [Header("キャラの名前テキスト")]
-    private Text _charaText;
+    private TextMeshProUGUI _charaText;
 
     [SerializeField]
     [Header("ステージ上にでるキャラ")]
@@ -108,6 +109,7 @@ public class SelectCharacter : MonoBehaviour
                 _charaText.text = _charaName[(int)_type];
                 break;
         }
+
         _charaNum = charaNum;
     }
 
@@ -123,6 +125,13 @@ public class SelectCharacter : MonoBehaviour
         }
         else
         {
+            // 二度押し禁止
+            _gameStartButton.interactable = false;
+            for (int i = 0; i < _characterButtons.Length; i++)
+            {
+                _characterButtons[i].interactable = false;
+            }
+
             GameManager.Instance.ChangeGameMode(true);
             _charaText.text = _charaName[(int)_type] + "を助けに行く";
             Instantiate(_anyStageIdol[(int)_type], _stageSpawnPos.position, Quaternion.identity);

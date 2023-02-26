@@ -50,10 +50,6 @@ public class UIManager : MonoBehaviour
     [Header("ログテキスト")]
     private Text _logText;
 
-    [SerializeField]
-    [Header("詳細説明ボタン")]
-    private Button _detailButton;
-
     private Vector3 _enemyTextPosition = new Vector3(-113f, -65f, 0f);// 固定値
 
     private Vector3 _playerTextPosition = new Vector3(100f, -34f, 0f);// 固定値
@@ -130,7 +126,8 @@ public class UIManager : MonoBehaviour
     {
         if (!_isOpen)
         {
-            image.transform.DOScale(1f, 2f);
+            image.transform.DOScale(1f, 2f)
+                .SetEase(Ease.Linear);
             _isOpen = true;
         }
         else if (_isOpen)

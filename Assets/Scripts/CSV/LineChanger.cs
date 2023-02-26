@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class LineChanger : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class LineChanger : MonoBehaviour
 
     [SerializeField]
     [Header("行数")]
-    private Text[] _lineTextField;
+    private TextMeshProUGUI[] _lineTextField;
 
     [SerializeField]
     [Header("セレクトキャラクター")]
@@ -21,17 +21,7 @@ public class LineChanger : MonoBehaviour
     [Header("SceneLoader")]
     private SceneLoader _sceneLoader;
 
-    [SerializeField]
-    [Header("シナリオタイプ")]
-    private GameType _type;
-
     private int[] _lineNum = new int[7];
-
-    private enum GameType
-    {
-        InGame,
-        GameClear
-    }
 
     private void Start()
     {
