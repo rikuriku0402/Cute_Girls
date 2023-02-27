@@ -39,10 +39,6 @@ public class SelectCharacter : MonoBehaviour
     private Button _gameStartButton;
 
     [SerializeField]
-    [Header("キャラトークキャンバス")]
-    private Canvas _charaTalkCanvas;
-
-    [SerializeField]
     [Header("キャンバスグループ")]
     private CanvasGroup _canvasGroup;
 
@@ -132,20 +128,20 @@ public class SelectCharacter : MonoBehaviour
                 _characterButtons[i].interactable = false;
             }
 
+            var anyIdol = Instantiate(_anyCanvasIdol[(int)_type], _canvasSpawnPos.localPosition, Quaternion.identity);
             GameManager.Instance.ChangeGameMode(true);
             _charaText.text = _charaName[(int)_type] + "を助けに行く";
             Instantiate(_anyStageIdol[(int)_type], _stageSpawnPos.position, Quaternion.identity);
-            var anyIdol = Instantiate(_anyCanvasIdol[(int)_type], _canvasSpawnPos.localPosition, Quaternion.identity);
-            anyIdol.transform.SetParent(_charaTalkCanvas.transform, false);
+            anyIdol.transform.SetParent(_canvasSpawnPos.transform, false);
             await GameStartFade();
         }
     }
 
     private async UniTask GameStartFade()
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(2f));
-        CanvasGroupExtensions.FadeOut(_canvasGroup, 2f);
-        await UniTask.Delay(TimeSpan.FromSeconds(2f));
+        await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
+        CanvasGroupExtensions.FadeOut(_canvasGroup, 1f);
+        await UniTask.Delay(TimeSpan.FromSeconds(1.5f));
         _canvasGroup.gameObject.SetActive(false);
     }
 }

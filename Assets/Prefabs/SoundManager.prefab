@@ -57,14 +57,16 @@ MonoBehaviour:
   - _type: 4
     _clip: {fileID: 8300000, guid: d5ef61910a06e6c47b524ef73175feb3, type: 3}
   - _type: 5
-    _clip: {fileID: 8300000, guid: fe2b2bcede90d9f45864d63929533e7e, type: 3}
+    _clip: {fileID: 8300000, guid: 92d3259b6a9732e4ba3fb95331b2c95d, type: 3}
   - _type: 6
-    _clip: {fileID: 8300000, guid: 906e94837f2d3194ea9f4fa843a66a63, type: 3}
+    _clip: {fileID: 8300000, guid: fe2b2bcede90d9f45864d63929533e7e, type: 3}
   - _type: 7
-    _clip: {fileID: 8300000, guid: 8ce4f40d1f55cb84b8a655e3b6892b71, type: 3}
+    _clip: {fileID: 8300000, guid: 906e94837f2d3194ea9f4fa843a66a63, type: 3}
   - _type: 8
-    _clip: {fileID: 8300000, guid: 79b8411a386fff74e8b85a43fc4b4498, type: 3}
+    _clip: {fileID: 8300000, guid: 8ce4f40d1f55cb84b8a655e3b6892b71, type: 3}
   - _type: 9
+    _clip: {fileID: 8300000, guid: 79b8411a386fff74e8b85a43fc4b4498, type: 3}
+  - _type: 10
     _clip: {fileID: 8300000, guid: f3cdeca15533f2148b20dfddaa6b3254, type: 3}
   _soundBGM:
   - _type: 0
