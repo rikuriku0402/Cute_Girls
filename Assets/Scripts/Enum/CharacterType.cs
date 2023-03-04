@@ -1,11 +1,11 @@
 public enum CharacterType
 {
-    Hiyori,    // ‹gì‚Ğ‚æ‚è
-    Aki,       // ›“cˆ¤‹M
-    Hitoka,    // âˆä‚Ğ‚Æ‚©
-    Julia,     // ˆÇƒWƒ…ƒŠƒA
-    Kanami,    // ’Ò–ì‚©‚È‚İ
-    Oharu,     // ¬ò‚Í‚é‚©
+    Hiyori,    // å‰å·ã²ã‚ˆã‚Š
+    Aki,       // è…ç”°æ„›è²´
+    Hitoka,    // å‚äº•ã²ã¨ã‹
+    Julia,     // æã‚¸ãƒ¥ãƒªã‚¢
+    Kanami,    // è¾»é‡ã‹ãªã¿
+    Oharu,     // å°æ³‰ã¯ã‚‹ã‹
     Riku,
-    None,      // ‰½‚à‚È‚¢
+    None,      // ä½•ã‚‚ãªã„
 }

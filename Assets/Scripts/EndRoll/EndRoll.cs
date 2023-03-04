@@ -10,11 +10,11 @@ public class EndRoll : MonoBehaviour
     const string TITLE_SCENE_NAME = "Title";
 
     [SerializeField]
-    [Header("ƒXƒNƒ[ƒ‹ƒXƒs[ƒh")]
+    [Header("ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã‚¹ãƒ”ãƒ¼ãƒ‰")]
     private float _textScrollSpeed = 30;
 
     [SerializeField]
-    [Header("ƒeƒLƒXƒg‚Ì§ŒÀˆÊ’u")]
+    [Header("ãƒ†ã‚­ã‚¹ãƒˆã®åˆ¶é™ä½ç½®")]
     private float _limitPos = 730f;
 
     [SerializeField]
@@ -33,7 +33,7 @@ public class EndRoll : MonoBehaviour
     {
         if (!_isEnd.Value)
         {
-            ////@ƒGƒ“ƒhƒ[ƒ‹—pƒeƒLƒXƒg‚ªƒŠƒ~ƒbƒg‚ğ‰z‚¦‚é‚Ü‚Å“®‚©‚·
+            ////ã€€ã‚¨ãƒ³ãƒ‰ãƒ­ãƒ¼ãƒ«ç”¨ãƒ†ã‚­ã‚¹ãƒˆãŒãƒªãƒŸãƒƒãƒˆã‚’è¶Šãˆã‚‹ã¾ã§å‹•ã‹ã™
             if (transform.position.y <= _limitPos)
             {
                 transform.position = new Vector2(transform.position.x, transform.position.y + _textScrollSpeed * Time.deltaTime);
@@ -53,7 +53,6 @@ public class EndRoll : MonoBehaviour
             {
                 if (_isEnd.Value)
                 {
-                    Debug.Log("‚ ");
                     _sceneLoader.FadeInSceneChange(TITLE_SCENE_NAME);
                 }
             }).AddTo(this);

@@ -16,11 +16,11 @@ public class PlayerData : MonoBehaviour
     #region Inspector
 
     [SerializeField]
-    [Header("‘Ì—Í(HP)")]
+    [Header("ä½“åŠ›(HP)")]
     private IntReactiveProperty _hp = new();
 
     [SerializeField]
-    [Header("ƒ}ƒiƒ|ƒCƒ“ƒg(MP)")]
+    [Header("ãƒãƒŠãƒã‚¤ãƒ³ãƒˆ(MP)")]
     private IntReactiveProperty _mp = new();
 
     #endregion
@@ -38,7 +38,7 @@ public class PlayerData : MonoBehaviour
     #region Method
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ªƒ_ƒ[ƒW‚ğó‚¯‚éŠÖ”
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ã‚‹é–¢æ•°
     /// </summary>
     public void HpDamage(int anyValue)
     {
@@ -46,7 +46,7 @@ public class PlayerData : MonoBehaviour
     }
 
     /// <summary>
-    /// Hp‚ğ‘‚â‚·ŠÖ”
+    /// Hpã‚’å¢—ã‚„ã™é–¢æ•°
     /// </summary>
     public void HpRecovery(int anuValue)
     {
@@ -54,7 +54,7 @@ public class PlayerData : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[Mp‚ğŒ¸‚ç‚·ŠÖ”
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼Mpã‚’æ¸›ã‚‰ã™é–¢æ•°
     /// </summary>
     public void MpDamage(int anyValue)
     {
@@ -62,7 +62,7 @@ public class PlayerData : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ìƒ|[ƒVƒ‡ƒ“‚ğ‰ñ•œ‚·‚éŠÖ”
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒãƒ¼ã‚·ãƒ§ãƒ³ã‚’å›å¾©ã™ã‚‹é–¢æ•°
     /// </summary>
     public void MpRecovery(int anyValue)
     {

@@ -842,7 +842,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textScrollSpeed: 101.68
-  _limitPos: 2212.478
+  _limitPos: 2758.625
   _sceneLoader: {fileID: 397653683}
 --- !u!1 &1943753350
 GameObject:

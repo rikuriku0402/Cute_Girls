@@ -828,6 +828,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1533788165098279826, guid: 25ca0d0f4e719014abc3176186050486, type: 3}
+      propertyPath: m_Volume
+      value: 0.503
+      objectReference: {fileID: 0}
     - target: {fileID: 8212198884123746434, guid: 25ca0d0f4e719014abc3176186050486, type: 3}
       propertyPath: m_Name
       value: SoundManager
@@ -2134,7 +2138,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Game
+          m_StringArgument: Explanation
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1872567074

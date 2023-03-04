@@ -83,6 +83,7 @@ public class SoundManager : MonoBehaviour
         switch (SceneManager.GetActiveScene().name)
         {
             case "Title":
+                _audioSource.volume = 0.3f;
                 PlayBGM(BGMType.Title);
                 break;
 
@@ -96,6 +97,10 @@ public class SoundManager : MonoBehaviour
 
             case "GameOver":
                 PlayBGM(BGMType.GameOver);
+                break;
+            case "Explanation":
+                _audioSource.volume = 0.3f;
+                PlayBGM(BGMType.Title);
                 break;
         }
     }

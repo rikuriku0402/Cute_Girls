@@ -11,35 +11,35 @@ public class SelectCharacter : MonoBehaviour
     public int CharaNum => _charaNum;
 
     [SerializeField]
-    [Header("ƒLƒƒƒ‰‚Ì–¼‘OƒeƒLƒXƒg")]
+    [Header("ã‚­ãƒ£ãƒ©ã®åå‰ãƒ†ã‚­ã‚¹ãƒˆ")]
     private TextMeshProUGUI _charaText;
 
     [SerializeField]
-    [Header("ƒXƒe[ƒWã‚É‚Å‚éƒLƒƒƒ‰")]
+    [Header("ã‚¹ãƒ†ãƒ¼ã‚¸ä¸Šã«ã§ã‚‹ã‚­ãƒ£ãƒ©")]
     private GameObject[] _anyStageIdol;
 
     [SerializeField]
-    [Header("ƒLƒƒƒ“ƒoƒX‚É”z’u‚·‚éƒLƒƒƒ‰")]
+    [Header("ã‚­ãƒ£ãƒ³ãƒã‚¹ã«é…ç½®ã™ã‚‹ã‚­ãƒ£ãƒ©")]
     private Image[] _anyCanvasIdol;
 
     [SerializeField]
-    [Header("ƒLƒƒƒ‰ƒNƒ^[ƒ{ƒ^ƒ“")]
+    [Header("ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãƒœã‚¿ãƒ³")]
     private Button[] _characterButtons;
 
     [SerializeField]
-    [Header("ƒXƒe[ƒWƒXƒ|[ƒ“’n“_")]
+    [Header("ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¹ãƒãƒ¼ãƒ³åœ°ç‚¹")]
     private Transform _stageSpawnPos;
 
     [SerializeField]
-    [Header("ƒLƒƒƒ“ƒoƒXƒXƒ|[ƒ“’n“_")]
+    [Header("ã‚­ãƒ£ãƒ³ãƒã‚¹ã‚¹ãƒãƒ¼ãƒ³åœ°ç‚¹")]
     private Transform _canvasSpawnPos;
 
     [SerializeField]
-    [Header("ƒQ[ƒ€ƒXƒ^[ƒgƒ{ƒ^ƒ“")]
+    [Header("ã‚²ãƒ¼ãƒ ã‚¹ã‚¿ãƒ¼ãƒˆãƒœã‚¿ãƒ³")]
     private Button _gameStartButton;
 
     [SerializeField]
-    [Header("ƒLƒƒƒ“ƒoƒXƒOƒ‹[ƒv")]
+    [Header("ã‚­ãƒ£ãƒ³ãƒã‚¹ã‚°ãƒ«ãƒ¼ãƒ—")]
     private CanvasGroup _canvasGroup;
 
     [SerializeField]
@@ -48,7 +48,7 @@ public class SelectCharacter : MonoBehaviour
 
     private CharacterType _type;
 
-    private string[] _charaName = { "‚Ğ‚æ‚İ", "‚ ‚«‚±", "‚Ğ‚Æ‚è", "ƒWƒ…ƒŠƒGƒbƒg", "‚©‚È‚¦", "‚Í‚é‚İ" };
+    private string[] _charaName = { "ã²ã‚ˆã¿", "ã‚ãã“", "ã²ã¨ã‚Š", "ã‚¸ãƒ¥ãƒªã‚¨ãƒƒãƒˆ", "ã‹ãªãˆ", "ã¯ã‚‹ã¿" };
 
     private int _charaNum;
 
@@ -67,9 +67,9 @@ public class SelectCharacter : MonoBehaviour
     }
 
     /// <summary>
-    /// •‚¯‚ÉƒLƒƒƒ‰ƒNƒ^[‚ğ‘I‚ÔŠÖ”
+    /// åŠ©ã‘ã«ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚’é¸ã¶é–¢æ•°
     /// </summary>
-    /// <param name="charaNum">ƒLƒƒƒ‰ƒNƒ^[ƒiƒ“ƒo[</param>
+    /// <param name="charaNum">ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãƒŠãƒ³ãƒãƒ¼</param>
     private void Character(int charaNum)
     {
         _soundManager.PlaySFX(SFXType.Click);
@@ -110,18 +110,18 @@ public class SelectCharacter : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒQ[ƒ€‚ğŠJn‚·‚éŠÖ”
+    /// ã‚²ãƒ¼ãƒ ã‚’é–‹å§‹ã™ã‚‹é–¢æ•°
     /// </summary>
     private async void GameStart()
     {
         _soundManager.PlaySFX(SFXType.Button);
         if (_type == CharacterType.None)
         {
-            _charaText.text = "•‚¯‚És‚­ƒLƒƒƒ‰‚ğ‘I‚ñ‚Å‚ËI";
+            _charaText.text = "åŠ©ã‘ã«è¡Œãã‚­ãƒ£ãƒ©ã‚’é¸ã‚“ã§ã­ï¼";
         }
         else
         {
-            // “ñ“x‰Ÿ‚µ‹Ö~
+            // äºŒåº¦æŠ¼ã—ç¦æ­¢
             _gameStartButton.interactable = false;
             for (int i = 0; i < _characterButtons.Length; i++)
             {
@@ -130,7 +130,7 @@ public class SelectCharacter : MonoBehaviour
 
             var anyIdol = Instantiate(_anyCanvasIdol[(int)_type], _canvasSpawnPos.localPosition, Quaternion.identity);
             GameManager.Instance.ChangeGameMode(true);
-            _charaText.text = _charaName[(int)_type] + "‚ğ•‚¯‚És‚­";
+            _charaText.text = _charaName[(int)_type] + "ã‚’åŠ©ã‘ã«è¡Œã";
             Instantiate(_anyStageIdol[(int)_type], _stageSpawnPos.position, Quaternion.identity);
             anyIdol.transform.SetParent(_canvasSpawnPos.transform, false);
             await GameStartFade();

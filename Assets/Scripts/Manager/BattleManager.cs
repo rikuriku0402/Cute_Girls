@@ -39,31 +39,31 @@ public class BattleManager : MonoBehaviour
     private EnemyData _enemyData;
 
     [SerializeField]
-    [Header("–hŒä—Í")]
+    [Header("é˜²å¾¡åŠ›")]
     private int _defence;
 
     [SerializeField]
-    [Header("ƒvƒŒƒCƒ„[UŒ‚—Í")]
+    [Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ”»æ’ƒåŠ›")]
     private int _playerAttack;
 
     [SerializeField]
-    [Header("–‚–@UŒ‚—Í")]
+    [Header("é­”æ³•æ”»æ’ƒåŠ›")]
     private int _magicAttack;
 
     [SerializeField]
-    [Header("‚Ç‚Ì‚­‚ç‚¢MP‚ğ‰ñ•œ‚³‚¹‚é‚©")]
+    [Header("ã©ã®ãã‚‰ã„MPã‚’å›å¾©ã•ã›ã‚‹ã‹")]
     private int _mpRecovery;
 
     [SerializeField]
-    [Header("‚Ç‚Ì‚­‚ç‚¢HP‚ğ‰ñ•œ‚³‚¹‚é‚©")]
+    [Header("ã©ã®ãã‚‰ã„HPã‚’å›å¾©ã•ã›ã‚‹ã‹")]
     private int _hpRecovery;
 
     [SerializeField]
-    [Header("Á”ïMP")]
+    [Header("æ¶ˆè²»MP")]
     private int _portionMp;
 
     [SerializeField]
-    [Header("“G‚ÌUŒ‚—Í")]
+    [Header("æ•µã®æ”»æ’ƒåŠ›")]
     private int _enemyAttack;
 
     [SerializeField]
@@ -79,7 +79,7 @@ public class BattleManager : MonoBehaviour
     private SceneLoader _sceneLoader;
 
     [SerializeField]
-    [Header("ƒp[ƒeƒBƒNƒ‹ƒVƒXƒeƒ€")]
+    [Header("ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã‚·ã‚¹ãƒ†ãƒ ")]
     private Particle _particle;
 
     private int _allDamage;
@@ -89,7 +89,7 @@ public class BattleManager : MonoBehaviour
     #region Method
 
     /// <summary>
-    /// UŒ‚‚·‚éŠÖ”
+    /// æ”»æ’ƒã™ã‚‹é–¢æ•°
     /// </summary>
     public async UniTask Attack()
     {
@@ -97,33 +97,34 @@ public class BattleManager : MonoBehaviour
         _enemyData.HpDamage(_playerAttack);
         _uiManager.EnemyDamageTextPopUp(_playerAttack);
         _particle.ParticleInstantiate(_particle.PlayerAttackParticle, _particle.EnemyPos);
-        _uiManager.LogText.text = "Player‚ª“G‚É" + _playerAttack + "—^‚¦‚½";
+        _uiManager.LogText.text = "PlayerãŒæ•µã«" + _playerAttack + "ä¸ãˆãŸ";
         await UniTask.Delay(TimeSpan.FromSeconds(WAIT_TIME));
-        _uiManager.LogText.text = "“G‚ªPlayer‚É" + _enemyAttack + "—^‚¦‚½";
+        _uiManager.LogText.text = "æ•µãŒPlayerã«" + _enemyAttack + "ä¸ãˆãŸ";
         BattleCheck();
         _particle.ParticleInstantiate(_particle.EnemyAttackParticle, _particle.PlayerPos);
         _uiManager.PlayerDamageTextPopUp(_enemyAttack);
         _playerData.HpDamage(_enemyAttack);
+        _soundManager.PlaySFX(SFXType.EnemyAttack);
         BattleCheck();
     }
 
     /// <summary>
-    /// –hŒä‚·‚éŠÖ”
+    /// é˜²å¾¡ã™ã‚‹é–¢æ•°
     /// </summary>
     public async UniTask Defence()
     {
 
         if (_playerData.Mp.Value <= 0)
         {
-            Debug.Log("MP‚ª‘«‚è‚È‚¢‚æ");
-            _uiManager.LogText.text = "MP‚ª‘«‚è‚È‚¢‚æ";
+            Debug.Log("MPãŒè¶³ã‚Šãªã„ã‚ˆ");
+            _uiManager.LogText.text = "MPãŒè¶³ã‚Šãªã„ã‚ˆ";
             _playerData.Mp.Value = 0;
             return;
         }
         else if (_playerData.Mp.Value <= _portionMp)
         {
-            Debug.Log("MP‚ª‘«‚è‚È‚¢‚æ");
-            _uiManager.LogText.text = "MP‚ª‘«‚è‚È‚¢‚æ";
+            Debug.Log("MPãŒè¶³ã‚Šãªã„ã‚ˆ");
+            _uiManager.LogText.text = "MPãŒè¶³ã‚Šãªã„ã‚ˆ";
             return;
         }
         else
@@ -131,34 +132,35 @@ public class BattleManager : MonoBehaviour
             _allDamage = 0;
             _soundManager.PlaySFX(SFXType.Defence);
             _playerData.MpDamage(_portionMp);
-            Debug.Log("–hŒä");
+            Debug.Log("é˜²å¾¡");
             await UniTask.Delay(TimeSpan.FromSeconds(WAIT_TIME));
             BattleCheck();
             _allDamage = _enemyAttack - _defence;
             _uiManager.PlayerDamageTextPopUp(_allDamage);
             _particle.ParticleInstantiate(_particle.DefenceParticle, _particle.PlayerPos);
             _playerData.HpDamage(_allDamage);
-            _uiManager.LogText.text = "–hŒä‚µ‚½" + _allDamage + "‚­‚ç‚Á‚½";
+            _uiManager.LogText.text = "é˜²å¾¡ã—ãŸ" + _allDamage + "ãã‚‰ã£ãŸ";
+            _soundManager.PlaySFX(SFXType.EnemyAttack);
             BattleCheck();
         }
     }
 
     /// <summary>
-    /// ƒ|[ƒVƒ‡ƒ“‚ÅUŒ‚‚·‚éŠÖ”
+    /// ãƒãƒ¼ã‚·ãƒ§ãƒ³ã§æ”»æ’ƒã™ã‚‹é–¢æ•°
     /// </summary>
     public async UniTask Magic()
     {
         if (_playerData.Mp.Value <= 0)
         {
-            Debug.Log("MP‚ª‘«‚è‚È‚¢‚æ");
-            _uiManager.LogText.text = "MP‚ª‘«‚è‚È‚¢‚æ";
+            Debug.Log("MPãŒè¶³ã‚Šãªã„ã‚ˆ");
+            _uiManager.LogText.text = "MPãŒè¶³ã‚Šãªã„ã‚ˆ";
             _playerData.Mp.Value = 0;
             return;
         }
         else if (_playerData.Mp.Value <= _portionMp)
         {
-            Debug.Log("MP‚ª‘«‚è‚È‚¢‚æ");
-            _uiManager.LogText.text = "MP‚ª‘«‚è‚È‚¢‚æ";
+            Debug.Log("MPãŒè¶³ã‚Šãªã„ã‚ˆ");
+            _uiManager.LogText.text = "MPãŒè¶³ã‚Šãªã„ã‚ˆ";
             return;
         }
         else
@@ -168,32 +170,33 @@ public class BattleManager : MonoBehaviour
             _playerData.MpDamage(_portionMp);
             _particle.ParticleInstantiate(_particle.MagicParticle, _particle.EnemyPos);
             _uiManager.EnemyDamageTextPopUp(_magicAttack);
-            _uiManager.LogText.text = "Player‚ª“G‚É" + _magicAttack + "—^‚¦‚½";
+            _uiManager.LogText.text = "PlayerãŒæ•µã«" + _magicAttack + "ä¸ãˆãŸ";
             await UniTask.Delay(TimeSpan.FromSeconds(WAIT_TIME));
-            _uiManager.LogText.text = "“G‚ªPlayer‚É" + _enemyAttack + "—^‚¦‚½";
+            _uiManager.LogText.text = "æ•µãŒPlayerã«" + _enemyAttack + "ä¸ãˆãŸ";
             BattleCheck();
             _uiManager.PlayerDamageTextPopUp(_enemyAttack);
             _particle.ParticleInstantiate(_particle.EnemyAttackParticle, _particle.PlayerPos);
             _playerData.HpDamage(_enemyAttack);
+            _soundManager.PlaySFX(SFXType.EnemyAttack);
             BattleCheck();
         }
     }
 
     /// <summary>
-    /// ƒ|[ƒVƒ‡ƒ“‚ğ‰ñ•œ‚·‚éŠÖ”
+    /// ãƒãƒ¼ã‚·ãƒ§ãƒ³ã‚’å›å¾©ã™ã‚‹é–¢æ•°
     /// </summary>
     public async UniTask MPRecovery()
     {
         if (_playerData.Mp.Value <= 0)
         {
-            Debug.Log("MP‚ª‘«‚è‚È‚¢‚æ");
-            _uiManager.LogText.text = "MP‚ª‘«‚è‚È‚¢‚æ";
+            Debug.Log("MPãŒè¶³ã‚Šãªã„ã‚ˆ");
+            _uiManager.LogText.text = "MPãŒè¶³ã‚Šãªã„ã‚ˆ";
             _playerData.Mp.Value = 0;
         }
         else if (_playerData.Mp.Value >= 150)
         {
             _playerData.Mp.Value = 150;
-            _uiManager.LogText.text = "MP‚ªƒ}ƒbƒNƒX‚¾‚æ";
+            _uiManager.LogText.text = "MPãŒãƒãƒƒã‚¯ã‚¹ã ã‚ˆ";
             return;
         }
 
@@ -201,22 +204,23 @@ public class BattleManager : MonoBehaviour
         _soundManager.PlaySFX(SFXType.PoritionRecovery);
         _playerData.MpRecovery(_mpRecovery);
         _particle.ParticleInstantiate(_particle.MpRecoveryParticle, _particle.PlayerPos);
-        _uiManager.LogText.text = "MP‚ğ" + _mpRecovery + "‰ñ•œ‚µ‚½";
+        _uiManager.LogText.text = "MPã‚’" + _mpRecovery + "å›å¾©ã—ãŸ";
 
         await UniTask.Delay(TimeSpan.FromSeconds(WAIT_TIME));
 
-        _allDamage = _enemyAttack + 3;// ƒ}ƒWƒbƒNƒiƒ“ƒo[
-        _uiManager.LogText.text = "“G‚ªPlayer‚É" + _allDamage + "—^‚¦‚½";
+        _allDamage = _enemyAttack + 3;// ãƒã‚¸ãƒƒã‚¯ãƒŠãƒ³ãƒãƒ¼
+        _uiManager.LogText.text = "æ•µãŒPlayerã«" + _allDamage + "ä¸ãˆãŸ";
 
         BattleCheck();
 
         _uiManager.PlayerDamageTextPopUp(_allDamage);
         _playerData.HpDamage(_allDamage);
+        _soundManager.PlaySFX(SFXType.EnemyAttack);
         _particle.ParticleInstantiate(_particle.EnemyAttackParticle, _particle.PlayerPos);
 
         if (_playerData.Mp.Value >= 150)
         {
-            Debug.Log("MPƒ}ƒbƒNƒX");
+            Debug.Log("MPãƒãƒƒã‚¯ã‚¹");
             _playerData.Mp.Value = 150;
         }
 
@@ -224,26 +228,26 @@ public class BattleManager : MonoBehaviour
     }
 
     /// <summary>
-    /// HP‚ğ‰ñ•œ‚·‚éŠÖ”
+    /// HPã‚’å›å¾©ã™ã‚‹é–¢æ•°
     /// </summary>
     public async UniTask HPRecovery()
     {
         if (_playerData.Mp.Value <= 0)
         {
-            Debug.Log("MP‚ª‘«‚è‚È‚¢‚æ");
-            _uiManager.LogText.text = "MP‚ª‘«‚è‚È‚¢‚æ";
+            Debug.Log("MPãŒè¶³ã‚Šãªã„ã‚ˆ");
+            _uiManager.LogText.text = "MPãŒè¶³ã‚Šãªã„ã‚ˆ";
             _playerData.Mp.Value = 0;
             return;
         }
         else if (_playerData.Mp.Value <= _portionMp)
         {
-            _uiManager.LogText.text = "MP‚ª‘«‚è‚È‚¢‚æ";
+            _uiManager.LogText.text = "MPãŒè¶³ã‚Šãªã„ã‚ˆ";
             return;
         }
         else if (_playerData.Hp.Value >= 100)
         {
-            Debug.Log("HPƒ}ƒbƒNƒX");
-            _uiManager.LogText.text = "HPƒ}ƒbƒNƒX‚¾‚æ";
+            Debug.Log("HPãƒãƒƒã‚¯ã‚¹");
+            _uiManager.LogText.text = "HPãƒãƒƒã‚¯ã‚¹ã ã‚ˆ";
             _playerData.Hp.Value = 100;
             return;
         }
@@ -252,28 +256,29 @@ public class BattleManager : MonoBehaviour
             _allDamage = 0;
 
             _soundManager.PlaySFX(SFXType.HpRecovery);
-            _allDamage = _enemyAttack + 3;// ƒ}ƒWƒbƒNƒiƒ“ƒo[
+            _allDamage = _enemyAttack + 3;// ãƒã‚¸ãƒƒã‚¯ãƒŠãƒ³ãƒãƒ¼
             _playerData.MpDamage(_portionMp);
             _playerData.HpRecovery(_hpRecovery);
             _particle.ParticleInstantiate(_particle.RecoveryParticle, _particle.PlayerPos);
 
             if (_playerData.Hp.Value >= 100)
             {
-                Debug.Log("HPƒ}ƒbƒNƒX");
-                _uiManager.LogText.text = "HPƒ}ƒbƒNƒX‚¾‚æ";
+                Debug.Log("HPãƒãƒƒã‚¯ã‚¹");
+                _uiManager.LogText.text = "HPãƒãƒƒã‚¯ã‚¹ã ã‚ˆ";
                 _playerData.Hp.Value = 100;
             }
 
-            _uiManager.LogText.text = "HP‚ğ" + _hpRecovery + "‰ñ•œ‚µ‚½";
+            _uiManager.LogText.text = "HPã‚’" + _hpRecovery + "å›å¾©ã—ãŸ";
 
             await UniTask.Delay(TimeSpan.FromSeconds(WAIT_TIME));
 
-            _uiManager.LogText.text = "“G‚ªPlayer‚É" + _allDamage + "—^‚¦‚½";
+            _uiManager.LogText.text = "æ•µãŒPlayerã«" + _allDamage + "ä¸ãˆãŸ";
 
             BattleCheck();
 
             _uiManager.PlayerDamageTextPopUp(_allDamage);
             _playerData.HpDamage(_allDamage);
+            _soundManager.PlaySFX(SFXType.EnemyAttack);
             _particle.ParticleInstantiate(_particle.EnemyAttackParticle, _particle.PlayerPos);
 
             BattleCheck();
@@ -281,22 +286,22 @@ public class BattleManager : MonoBehaviour
     }
 
     /// <summary>
-    /// •KE‹Z‚ğ‘Å‚ÂŠÖ”
+    /// å¿…æ®ºæŠ€ã‚’æ‰“ã¤é–¢æ•°
     /// </summary>
     public async UniTask Deathblow()
     {
         var mpAllDamage = _portionMp + _portionMp;
         if (_playerData.Mp.Value <= 0)
         {
-            Debug.Log("MP‚ª‘«‚è‚È‚¢‚æ");
-            _uiManager.LogText.text = "MP‚ª‘«‚è‚È‚¢‚æ";
+            Debug.Log("MPãŒè¶³ã‚Šãªã„ã‚ˆ");
+            _uiManager.LogText.text = "MPãŒè¶³ã‚Šãªã„ã‚ˆ";
             _playerData.Mp.Value = 0;
             return;
         }
         else if (_playerData.Mp.Value <= mpAllDamage)
         {
-            Debug.Log("MP‚ª‘«‚è‚È‚¢‚æ");
-            _uiManager.LogText.text = "MP‚ª‘«‚è‚È‚¢‚æ";
+            Debug.Log("MPãŒè¶³ã‚Šãªã„ã‚ˆ");
+            _uiManager.LogText.text = "MPãŒè¶³ã‚Šãªã„ã‚ˆ";
             return;
         }
         else
@@ -310,22 +315,24 @@ public class BattleManager : MonoBehaviour
             _playerData.MpDamage(mpAllDamage);
             _particle.ParticleInstantiate(_particle.DeathblowParticle, _particle.EnemyPos);
             _uiManager.EnemyDamageTextPopUp(_allDamage);
-            _uiManager.LogText.text = "Player‚ª“G‚É" + _allDamage + "—^‚¦‚½";
+            _uiManager.LogText.text = "PlayerãŒæ•µã«" + _allDamage + "ä¸ãˆãŸ";
             await UniTask.Delay(TimeSpan.FromSeconds(WAIT_TIME));
 
             BattleCheck();
 
-            _uiManager.LogText.text = "“G‚ªPlayer‚É" + _enemyAttack + "—^‚¦‚½";
+            _uiManager.LogText.text = "æ•µãŒPlayerã«" + _enemyAttack + "ä¸ãˆãŸ";
             _uiManager.PlayerDamageTextPopUp(_enemyAttack);
             _particle.ParticleInstantiate(_particle.EnemyAttackParticle, _particle.PlayerPos);
+            _soundManager.PlaySFX(SFXType.EnemyAttack);
             _playerData.HpDamage(_enemyAttack);
-        }
+        }   
+
     }
 
     /// <summary>
-    /// ‘Ì—Í‚ğƒ`ƒFƒbƒN‚µ‚Ä
-    /// ƒQ[ƒ€ƒNƒŠƒA‚©ƒQ[ƒ€ƒI[ƒo[‚©‚ğ
-    /// ŠÄ‹‚·‚éŠÖ”
+    /// ä½“åŠ›ã‚’ãƒã‚§ãƒƒã‚¯ã—ã¦
+    /// ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ã‹ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã‹ã‚’
+    /// ç›£è¦–ã™ã‚‹é–¢æ•°
     /// </summary>
     private void BattleCheck()
     {
@@ -338,7 +345,7 @@ public class BattleManager : MonoBehaviour
         _playerData.Hp.Value = playerHp;
         if (playerHp <= 0)
         {
-            Debug.Log("ƒQ[ƒ€ƒI[ƒo[");
+            Debug.Log("ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼");
             _soundManager.PlayBGM(BGMType.GameOver);
             _sceneLoader.FadeInSceneChange("GameOver");
         }
@@ -350,7 +357,7 @@ public class BattleManager : MonoBehaviour
         _enemyData.Hp.Value = enemyHp;
         if (enemyHp <= 0)
         {
-            Debug.Log("ƒQ[ƒ€ƒNƒŠƒA");
+            Debug.Log("ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢");
             _soundManager.PlaySFX(SFXType.BattleWin);
             _soundManager.PlayBGM(BGMType.Game);
             _enemyData.Init();
