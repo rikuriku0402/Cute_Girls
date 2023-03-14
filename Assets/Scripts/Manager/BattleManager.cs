@@ -91,7 +91,7 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// 攻撃する関数
     /// </summary>
-    public async UniTask Attack()
+    public async UniTask AttackAsync()
     {
         _soundManager.PlaySFX(SFXType.Attack);
         _enemyData.HpDamage(_playerAttack);
@@ -111,7 +111,7 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// 防御する関数
     /// </summary>
-    public async UniTask Defence()
+    public async UniTask DefenceAsync()
     {
 
         if (_playerData.Mp.Value <= 0)
@@ -148,7 +148,7 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// ポーションで攻撃する関数
     /// </summary>
-    public async UniTask Magic()
+    public async UniTask MagicAsync()
     {
         if (_playerData.Mp.Value <= 0)
         {
@@ -185,7 +185,7 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// ポーションを回復する関数
     /// </summary>
-    public async UniTask MPRecovery()
+    public async UniTask MPRecoveryAsync()
     {
         if (_playerData.Mp.Value <= 0)
         {
@@ -200,6 +200,8 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
+        var addDamage = 3;// プラスでダメージを与える
+        
         _allDamage = 0;
         _soundManager.PlaySFX(SFXType.PoritionRecovery);
         _playerData.MpRecovery(_mpRecovery);
@@ -208,7 +210,7 @@ public class BattleManager : MonoBehaviour
 
         await UniTask.Delay(TimeSpan.FromSeconds(WAIT_TIME));
 
-        _allDamage = _enemyAttack + 3;// マジックナンバー
+        _allDamage = _enemyAttack + addDamage;
         _uiManager.LogText.text = "敵がPlayerに" + _allDamage + "与えた";
 
         BattleCheck();
@@ -230,7 +232,7 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// HPを回復する関数
     /// </summary>
-    public async UniTask HPRecovery()
+    public async UniTask HPRecoveryAsync()
     {
         if (_playerData.Mp.Value <= 0)
         {
@@ -253,10 +255,11 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
+            var addDamage = 3;// プラスでダメージを与える
             _allDamage = 0;
 
             _soundManager.PlaySFX(SFXType.HpRecovery);
-            _allDamage = _enemyAttack + 3;// マジックナンバー
+            _allDamage = _enemyAttack + addDamage;
             _playerData.MpDamage(_portionMp);
             _playerData.HpRecovery(_hpRecovery);
             _particle.ParticleInstantiate(_particle.RecoveryParticle, _particle.PlayerPos);
@@ -288,7 +291,7 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// 必殺技を打つ関数
     /// </summary>
-    public async UniTask Deathblow()
+    public async UniTask DeathblowAsync()
     {
         var mpAllDamage = _portionMp + _portionMp;
         if (_playerData.Mp.Value <= 0)

@@ -11,49 +11,49 @@ public class UIManager : MonoBehaviour
 
     public TextMeshProUGUI LogText => _logText;
 
-    const float MOVE_Y = 50f;// ‚Ç‚Ì‚­‚ç‚¢ã‚É“®‚­‚©
+    const float MOVE_Y = 50f;// ã©ã®ãã‚‰ã„ä¸Šã«å‹•ãã‹
 
-    const float MOVE_TIME = 0.8f;// ‰½•b‚Åã‚És‚­‚©
+    const float MOVE_TIME = 0.8f;// ä½•ç§’ã§ä¸Šã«è¡Œãã‹
 
     [SerializeField]
-    [Header("ƒoƒgƒ‹ƒLƒƒƒ“ƒoƒX")]
+    [Header("ãƒãƒˆãƒ«ã‚­ãƒ£ãƒ³ãƒã‚¹")]
     private Canvas _battleCanvas;
 
     [SerializeField]
-    [Header("ƒLƒƒƒ‰‘I‘ğƒLƒƒƒ“ƒoƒX")]
+    [Header("ã‚­ãƒ£ãƒ©é¸æŠã‚­ãƒ£ãƒ³ãƒã‚¹")]
     private Canvas _charaCanvas;
 
     [SerializeField]
-    [Header("“G‚Ìƒ_ƒ[ƒWƒeƒLƒXƒg")]
+    [Header("æ•µã®ãƒ€ãƒ¡ãƒ¼ã‚¸ãƒ†ã‚­ã‚¹ãƒˆ")]
     private TextMeshProUGUI _enemyDamageText;
 
     [SerializeField]
-    [Header("“G‚Ìƒ_ƒ[ƒWƒeƒLƒXƒg")]
+    [Header("æ•µã®ãƒ€ãƒ¡ãƒ¼ã‚¸ãƒ†ã‚­ã‚¹ãƒˆ")]
     private CanvasGroup _enemyText;
 
     [SerializeField]
-    [Header("ƒvƒŒƒCƒ„[‚Ìƒ_ƒ[ƒWƒeƒLƒXƒg")]
+    [Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ€ãƒ¡ãƒ¼ã‚¸ãƒ†ã‚­ã‚¹ãƒˆ")]
     private TextMeshProUGUI _playerDamageText;
 
     [SerializeField]
-    [Header("ƒvƒŒƒCƒ„[‚Ìƒ_ƒ[ƒWƒeƒLƒXƒg")]
+    [Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ€ãƒ¡ãƒ¼ã‚¸ãƒ†ã‚­ã‚¹ãƒˆ")]
     private CanvasGroup _playerText;
 
     [SerializeField]
-    [Header("‘I‘ğƒy[ƒW1")]
+    [Header("é¸æŠãƒšãƒ¼ã‚¸1")]
     private GameObject _page_1;
 
     [SerializeField]
-    [Header("‘I‘ğƒy[ƒW2")]
+    [Header("é¸æŠãƒšãƒ¼ã‚¸2")]
     private GameObject _page_2;
 
     [SerializeField]
-    [Header("ƒƒOƒeƒLƒXƒg")]
+    [Header("ãƒ­ã‚°ãƒ†ã‚­ã‚¹ãƒˆ")]
     private TextMeshProUGUI _logText;
 
-    private Vector3 _enemyTextPosition = new Vector3(-113f, -65f, 0f);// ŒÅ’è’l
+    private Vector3 _enemyTextPosition = new Vector3(-113f, -65f, 0f);// å›ºå®šå€¤
 
-    private Vector3 _playerTextPosition = new Vector3(100f, -34f, 0f);// ŒÅ’è’l
+    private Vector3 _playerTextPosition = new Vector3(100f, -34f, 0f);// å›ºå®šå€¤
 
     private bool _isOpen;
 
@@ -77,7 +77,7 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ‘I‘ğ‰æ–Ê‚ğØ‚è‘Ö‚¦‚é‚½‚ß‚ÌŠÖ”
+    /// é¸æŠç”»é¢ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹ãŸã‚ã®é–¢æ•°
     /// </summary>
     public void ActionPageChange()
     {
@@ -94,12 +94,12 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒeƒLƒXƒg‚ğƒ|ƒbƒvƒAƒbƒv‚³‚¹‚½‚è
-    /// •\¦”ñ•\¦‚ğØ‚è‘Ö‚¦‚é‚½‚ß‚ÌŠÖ”
+    /// ãƒ†ã‚­ã‚¹ãƒˆã‚’ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã•ã›ãŸã‚Š
+    /// è¡¨ç¤ºéè¡¨ç¤ºã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹ãŸã‚ã®é–¢æ•°
     /// </summary>
     private void FadeInOutText(CanvasGroup canvasGroup, TextMeshProUGUI damageText, float value, Vector3 vector3)
     {
-        canvasGroup.alpha = 1f;// ‰Šú’l‚É–ß‚·
+        canvasGroup.alpha = 1f;// åˆæœŸå€¤ã«æˆ»ã™
 
         damageText.transform.localPosition = vector3;
         damageText.text = value.ToString();
@@ -110,7 +110,7 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒLƒƒƒ“ƒoƒX‚ğ”ñ•\¦‚É‚·‚éŠÖ”
+    /// ã‚­ãƒ£ãƒ³ãƒã‚¹ã‚’éè¡¨ç¤ºã«ã™ã‚‹é–¢æ•°
     /// </summary>
     public void CanvasFalse()
     {
@@ -120,8 +120,8 @@ public class UIManager : MonoBehaviour
 
 
     /// <summary>
-    /// ƒAƒNƒVƒ‡ƒ“ƒRƒ}ƒ“ƒh‚Ìà–¾ƒCƒ[ƒW
-    /// ‚ğŠJ‚¢‚½‚è•Â‚¶‚½‚è‚·‚éŠÖ”
+    /// ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚³ãƒãƒ³ãƒ‰ã®èª¬æ˜ã‚¤ãƒ¡ãƒ¼ã‚¸
+    /// ã‚’é–‹ã„ãŸã‚Šé–‰ã˜ãŸã‚Šã™ã‚‹é–¢æ•°
     /// </summary>
     public void DetailExplanationButton(Image image)
     {

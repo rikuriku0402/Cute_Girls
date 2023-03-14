@@ -110,7 +110,7 @@ public class PlayerView : MonoBehaviour
     private async void Attack()
     {
         _buttons.ForEach(x => x.interactable = false);
-        await _battleSystem.Attack();
+        await _battleSystem.AttackAsync();
         _buttons.ForEach(x => x.interactable = true);
     }
 
@@ -120,7 +120,7 @@ public class PlayerView : MonoBehaviour
     private async void Defence()
     {
         _buttons.ForEach(x => x.interactable = false);
-        await _battleSystem.Defence();
+        await _battleSystem.DefenceAsync();
         _buttons.ForEach(x => x.interactable = true);
     }
 
@@ -130,7 +130,7 @@ public class PlayerView : MonoBehaviour
     private async void MagicAttack()
     {
         _buttons.ForEach(x => x.interactable = false);
-        await _battleSystem.Magic();
+        await _battleSystem.MagicAsync();
         _buttons.ForEach(x => x.interactable = true);
     }
 
@@ -140,7 +140,7 @@ public class PlayerView : MonoBehaviour
     private async void MPRecovery()
     {
         _buttons.ForEach(x => x.interactable = false);
-        await _battleSystem.MPRecovery();
+        await _battleSystem.MPRecoveryAsync();
         _buttons.ForEach(x => x.interactable = true);
     }
 
@@ -150,7 +150,7 @@ public class PlayerView : MonoBehaviour
     private async void HPRecovery()
     {
         _buttons.ForEach(x => x.interactable = false);
-        await _battleSystem.HPRecovery();
+        await _battleSystem.HPRecoveryAsync();
         _buttons.ForEach(x => x.interactable = true);
     }
 
@@ -160,7 +160,7 @@ public class PlayerView : MonoBehaviour
     private async void Deathblow()
     {
         _buttons.ForEach(x => x.interactable = false);
-        await _battleSystem.Deathblow();
+        await _battleSystem.DeathblowAsync();
         _buttons.ForEach(x => x.interactable = true);
     }
 
