@@ -2499,7 +2499,7 @@ MonoBehaviour:
   _mpRecovery: 10
   _hpRecovery: 20
   _portionMp: 20
-  _enemyAttack: 15
+  _enemyAttack: 8
   _uiManager: {fileID: 681555789}
   _soundManager: {fileID: 2881538995936219496}
   _sceneLoader: {fileID: 599563970}
@@ -6913,7 +6913,7 @@ GameObject:
   - component: {fileID: 1333413711}
   - component: {fileID: 1333413710}
   - component: {fileID: 1333413709}
-  - component: {fileID: 1333413708}
+  - component: {fileID: 1333413712}
   m_Layer: 0
   m_Name: Goal
   m_TagString: Untagged
@@ -6921,22 +6921,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!58 &1333413708
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1333413707}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!114 &1333413709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7018,6 +7002,22 @@ Transform:
   m_Father: {fileID: 614188595}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &1333413712
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333413707}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 9.39}
+  m_Direction: 0
 --- !u!1 &1353156426
 GameObject:
   m_ObjectHideFlags: 0
@@ -8918,6 +8918,7 @@ GameObject:
   - component: {fileID: 1659338349}
   - component: {fileID: 1659338343}
   - component: {fileID: 1659338348}
+  - component: {fileID: 1659338350}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -8956,7 +8957,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.62731224, y: -7.6284966}
@@ -9064,6 +9065,22 @@ MonoBehaviour:
   _speed: 4.92
   _uiManager: {fileID: 681555789}
   _soundManager: {fileID: 2881538995936219496}
+--- !u!70 &1659338350
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1659338342}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.62731224, y: -7.84}
+  m_Size: {x: 1.22, y: 5.9044147}
+  m_Direction: 0
 --- !u!1 &1712465228
 GameObject:
   m_ObjectHideFlags: 0
