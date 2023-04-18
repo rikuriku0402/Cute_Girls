@@ -11,8 +11,8 @@
 
 ## 導入済みアセット
 
-### DOTween Pro
-> https://assetstore.unity.com/packages/tools/visual-scripting/dotween-pro-32416
+### DOTween (HOTween v2)
+> https://assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676
 
 ### UniRx
 > https://assetstore.unity.com/packages/tools/integration/unirx-reactive-extensions-for-unity-17276
