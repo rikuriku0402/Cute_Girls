@@ -9,7 +9,7 @@
 | ---------- | ----------- |
 | Unity      | [こちらを参照して下さい](ProjectSettings/ProjectVersion.txt#L1) |
 
-## 導入済みアセット
+## 使用アセット
 
 ### DOTween (HOTween v2)
 > https://assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676
@@ -22,6 +22,18 @@
 
 ### Epic Toon FX
 > https://assetstore.unity.com/packages/vfx/particles/epic-toon-fx-57772
+
+## 使用フォント
+
+### nikkyou-sans-font
+> https://www.fontspace.com/nikkyou-sans-font-f31053
+
+### あずきフォント
+> http://azukifont.com/kiyaku.html
+
+### JK丸ゴシック
+http://font.cutegirl.jp/jkmarugo.html
+
 
 ## コード規則
 
