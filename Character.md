@@ -2,12 +2,12 @@
 
 [あきこ(等身大)](https://github.com/rikuriku0402/Cute_Girls/blob/develop/Assets/Textures/TyouTokimekiSendenbu/Aki/AkiLife-size.png)
 
-[かなえ]()
+[かなえ(等身大)](https://github.com/rikuriku0402/Cute_Girls/blob/develop/Assets/Textures/TyouTokimekiSendenbu/Kanami/KanamiLife-size.png)
 
-[はるみ]()
+[はるみ(等身大)](https://github.com/rikuriku0402/Cute_Girls/blob/develop/Assets/Textures/TyouTokimekiSendenbu/Haruka/HarukaLife-size.png)
 
-[ひとり]()
+[ひとり(等身大)](https://github.com/rikuriku0402/Cute_Girls/blob/develop/Assets/Textures/TyouTokimekiSendenbu/Hitoka/HitokaLife-size.png)
 
-[ジュリエット]()
+[ジュリエット(等身大)](https://github.com/rikuriku0402/Cute_Girls/blob/develop/Assets/Textures/TyouTokimekiSendenbu/Julia/JuliaLife-size.png)
 
-[ひよみ]()
+[ひよみ(等身大)](https://github.com/rikuriku0402/Cute_Girls/blob/develop/Assets/Textures/TyouTokimekiSendenbu/Hiyori/HiyoriLife-size.png)
