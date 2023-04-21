@@ -9,16 +9,19 @@
 | ---------- | ----------- |
 | Unity      | [こちらを参照して下さい](ProjectSettings/ProjectVersion.txt#L1) |
 
-## 使用アセット
+## 使用アセット、ライセンス
 
 ### DOTween (HOTween v2)
 > https://assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676
+> http://dotween.demigiant.com/license.php
 
 ### UniRx
 > https://assetstore.unity.com/packages/tools/integration/unirx-reactive-extensions-for-unity-17276
+> https://github.com/neuecc/UniRx/blob/master/LICENSE
 
 ### UniTask
 > https://github.com/Cysharp/UniTask
+> https://github.com/Cysharp/UniTask/blob/master/LICENSE
 
 ### Epic Toon FX
 > https://assetstore.unity.com/packages/vfx/particles/epic-toon-fx-57772
