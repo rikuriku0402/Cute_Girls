@@ -4,7 +4,7 @@
 
 [かなえ(等身大)](https://github.com/rikuriku0402/Cute_Girls/blob/develop/Assets/Textures/TyouTokimekiSendenbu/Kanami/KanamiLife-size.png)
 
-[はるみ(等身大)](https://github.com/rikuriku0402/Cute_Girls/blob/develop/Assets/Textures/TyouTokimekiSendenbu/Haruka/HarukaLife-size.png)
+[はるみ(等身大)](https://github.com/rikuriku0402/Cute_Girls/blob/develop/Assets/Textures/TyouTokimekiSendenbu/Oharu/OharuLife-size.png)
 
 [ひとり(等身大)](https://github.com/rikuriku0402/Cute_Girls/blob/develop/Assets/Textures/TyouTokimekiSendenbu/Hitoka/HitokaLife-size.png)
 
