@@ -7,15 +7,15 @@ public class SceneLoader : MonoBehaviour
     const string CREDIT = "Credit";
 
     [SerializeField]
-    [Header("‘Ò‹@ŠÔ")]
+    [Header("å¾…æ©Ÿæ™‚é–“")]
     private float _fadeTime;
 
     [SerializeField]
-    [Header("ƒtƒF[ƒhƒCƒ[ƒW")]
+    [Header("ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¤ãƒ¡ãƒ¼ã‚¸")]
     private CanvasGroup _fadeImage;
 
     [SerializeField]
-    [Header("ƒTƒEƒ“ƒhƒ}ƒl[ƒWƒƒ[")]
+    [Header("ã‚µã‚¦ãƒ³ãƒ‰ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼")]
     private SoundManager _soundManager;
 
     private void Start()

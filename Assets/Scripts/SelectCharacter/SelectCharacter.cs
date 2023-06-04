@@ -9,30 +9,14 @@ using TMPro;
 public class SelectCharacter : MonoBehaviour
 {
     public int CharaNum => _charaNum;
-
+    
     [SerializeField]
     [Header("キャラの名前テキスト")]
-    private TextMeshProUGUI _charaText;
-
-    [SerializeField]
-    [Header("ステージ上にでるキャラ")]
-    private GameObject[] _anyStageIdol;
-
-    [SerializeField]
-    [Header("キャンバスに配置するキャラ")]
-    private Image[] _anyCanvasIdol;
+    private TMP_Text _charaText;
 
     [SerializeField]
     [Header("キャラクターボタン")]
     private Button[] _characterButtons;
-
-    [SerializeField]
-    [Header("ステージスポーン地点")]
-    private Transform _stageSpawnPos;
-
-    [SerializeField]
-    [Header("キャンバススポーン地点")]
-    private Transform _canvasSpawnPos;
 
     [SerializeField]
     [Header("ゲームスタートボタン")]
@@ -45,6 +29,10 @@ public class SelectCharacter : MonoBehaviour
     [SerializeField]
     [Header("SoundManager")]
     private SoundManager _soundManager;
+    
+    [SerializeField]
+    [Header("ステージ")]
+    private StageData _stageData;
 
     private CharacterType _type;
 
@@ -57,8 +45,13 @@ public class SelectCharacter : MonoBehaviour
         for (int i = 0; i < _characterButtons.Length; i++)
         {
             var i1 = i;
+            Debug.Log(_characterButtons.Length);
             _characterButtons[i].onClick.AddListener(() => Character(i1));
+            if (i < _stageData.StageUnlock) _characterButtons[i].interactable = true;
+            else _characterButtons[i].interactable = false;
         }
+        
+        
 
         _charaNum = -1;
         _type = CharacterType.None;
@@ -115,6 +108,7 @@ public class SelectCharacter : MonoBehaviour
     private async void GameStart()
     {
         _soundManager.PlaySFX(SFXType.Button);
+        
         if (_type == CharacterType.None)
         {
             _charaText.text = "助けに行くキャラを選んでね！";
@@ -128,11 +122,8 @@ public class SelectCharacter : MonoBehaviour
                 _characterButtons[i].interactable = false;
             }
 
-            var anyIdol = Instantiate(_anyCanvasIdol[(int)_type], _canvasSpawnPos.localPosition, Quaternion.identity);
             GameManager.Instance.ChangeGameMode(true);
             _charaText.text = _charaName[(int)_type] + "を助けに行く";
-            Instantiate(_anyStageIdol[(int)_type], _stageSpawnPos.position, Quaternion.identity);
-            anyIdol.transform.SetParent(_canvasSpawnPos.transform, false);
             await GameStartFade();
         }
     }
