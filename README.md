@@ -55,4 +55,4 @@ http://font.cutegirl.jp/jkmarugo.html
 # イラスト
 
 バンタンゲームアカデミー東京校　高等部　キャラクターデザイン専攻21　今咲月さん
-
+> https://github.com/rikuriku0402/Cute_Girls/tree/develop/Assets/Textures/TyouTokimekiSendenbu
